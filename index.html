@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Solo Leveling System Animation</title>
+    <style>
+      body {
+        background-color: #0b0f1a;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+        font-family: "Orbitron", sans-serif;
+      }
+
+      .system-window {
+        position: relative;
+        width: 0;
+        height: 0;
+        background: rgba(0, 255, 255, 0.1);
+        border: 2px solid cyan;
+        box-shadow: 0 0 20px cyan, inset 0 0 15px cyan;
+        border-radius: 8px;
+        opacity: 0;
+      }
+
+      .system-window.active {
+        animation: openSystem 0.7s ease-out forwards;
+      }
+
+      @keyframes openSystem {
+        0% {
+          transform: scale(0);
+          opacity: 0;
+          width: 350px;
+          height: 0;
+        }
+        1% {
+          opacity: 1;
+          height: 1px;
+          width: 350px;
+        }
+        10% {
+          height: 20px;
+          width: 350px;
+        }
+        40% {
+          width: 350px;
+        }
+        60% {
+          width: 350px;
+          height: 150px;
+        }
+        100% {
+          width: 350px;
+          height: 150px;
+          opacity: 1;
+        }
+      }
+
+      .glow {
+        position: absolute;
+        inset: 0;
+        border-radius: 8px;
+        box-shadow: 0 0 40px cyan;
+        opacity: 0.6;
+        animation: pulse 2s infinite alternate;
+      }
+
+      @keyframes pulse {
+        0% {
+          opacity: 0.4;
+        }
+        100% {
+          opacity: 0.9;
+        }
+      }
+
+      .text {
+        position: absolute;
+        color: cyan;
+        text-align: center;
+        width: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 1.5rem;
+        text-shadow: 0 0 10px cyan;
+      }
+
+      .intro {
+        position: absolute;
+        color: cyan;
+        font-size: 1.5rem;
+        text-shadow: 0 0 10px cyan;
+        cursor: pointer;
+        user-select: none;
+        transition: opacity 0.5s ease;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="system-window">
+      <div class="glow"></div>
+      <div class="text">SYSTEM ACTIVATED</div>
+    </div>
+
+    <audio id="systemSFX" src="system_open.mp3" preload="auto"></audio>
+
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        const systemWindow = document.querySelector(".system-window");
+        const sfx = document.getElementById("systemSFX");
+
+        // Create intro text
+        const intro = document.createElement("div");
+        intro.classList.add("intro");
+        intro.textContent = "Click to Activate System";
+        document.body.appendChild(intro);
+
+        const activateSystem = () => {
+          intro.style.opacity = "0";
+          setTimeout(() => intro.remove(), 500);
+
+          // Play SFX
+          sfx.volume = 0.5;
+          sfx.play();
+
+          // Trigger animation
+          systemWindow.style.animation = "none";
+          void systemWindow.offsetWidth; // reset animation
+          systemWindow.style.animation = "";
+          systemWindow.classList.add("active");
+        };
+
+        document.addEventListener("click", activateSystem, { once: true });
+        document.addEventListener("keydown", activateSystem, { once: true });
+      });
+    </script>
+  </body>
+</html>
