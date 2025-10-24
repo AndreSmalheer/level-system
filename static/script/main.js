@@ -23,6 +23,8 @@ function add_coins(amount) {
 }
 
 function add_xp(amount) {
+  const progressBar = document.getElementById("progress_bar");
+
   currentXP += amount;
 
   // Handle level up
@@ -52,7 +54,6 @@ function add_xp(amount) {
 
   // Update progress bar
   const progressPercent = (currentXP / nextLevelXP) * 100;
-  const progressBar = document.getElementById("progress_bar");
   progressBar.style.width = `${progressPercent}%`;
 }
 
