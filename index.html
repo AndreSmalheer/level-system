@@ -3,140 +3,131 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Solo Leveling System Animation</title>
+    <title>System Window</title>
     <style>
+      /* Global Style */
       body {
-        background-color: #0b0f1a;
+        background: linear-gradient(135deg, #0f0c29, #302b63, #242323);
+        font-family: "Poppins", sans-serif;
+        color: #aee7ff;
+        margin: 0;
+        padding: 0;
         display: flex;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
         height: 100vh;
-        overflow: hidden;
-        font-family: "Orbitron", sans-serif;
       }
 
-      .system-window {
-        position: relative;
-        width: 0;
-        height: 0;
-        background: rgba(0, 255, 255, 0.1);
-        border: 2px solid cyan;
-        box-shadow: 0 0 20px cyan, inset 0 0 15px cyan;
-        border-radius: 8px;
-        opacity: 0;
-      }
-
-      .system-window.active {
-        animation: openSystem 0.7s ease-out forwards;
-      }
-
-      @keyframes openSystem {
-        0% {
-          transform: scale(0);
-          opacity: 0;
-          width: 350px;
-          height: 0;
-        }
-        1% {
-          opacity: 1;
-          height: 1px;
-          width: 350px;
-        }
-        10% {
-          height: 20px;
-          width: 350px;
-        }
-        40% {
-          width: 350px;
-        }
-        60% {
-          width: 350px;
-          height: 150px;
-        }
-        100% {
-          width: 350px;
-          height: 150px;
-          opacity: 1;
-        }
-      }
-
-      .glow {
-        position: absolute;
-        inset: 0;
-        border-radius: 8px;
-        box-shadow: 0 0 40px cyan;
-        opacity: 0.6;
-        animation: pulse 2s infinite alternate;
-      }
-
-      @keyframes pulse {
-        0% {
-          opacity: 0.4;
-        }
-        100% {
-          opacity: 0.9;
-        }
-      }
-
-      .text {
-        position: absolute;
-        color: cyan;
-        text-align: center;
+      #status_container {
         width: 100%;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 1.5rem;
-        text-shadow: 0 0 10px cyan;
+        height: 30%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 2px solid rgba(0, 255, 255, 0.3);
       }
 
-      .intro {
-        position: absolute;
-        color: cyan;
-        font-size: 1.5rem;
-        text-shadow: 0 0 10px cyan;
-        cursor: pointer;
-        user-select: none;
-        transition: opacity 0.5s ease;
+      #status_container h1#name {
+        margin: 0;
+        font-size: 3rem;
+        color: #00c8ff;
+      }
+
+      #level_title_container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* gap: 4vw; */
+        /* padding-top: 2vh; */
+      }
+
+      #level_container,
+      #title_container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: clamp(8px, 1vh, 1px) clamp(16px, 2vw, 12px);
+      }
+
+      #level_container h1 {
+        margin: 0;
+        font-size: 2rem;
+        color: #00c8ff;
+      }
+
+      #level_container h2 {
+        margin: 0;
+        font-size: 1rem;
+        color: #aee7ff;
+        opacity: 0.9;
+      }
+
+      #title_container h1 {
+        margin: 0;
+        font-size: 2rem;
+        color: #00e0ff;
+      }
+
+      #title_container h2 {
+        margin: 0;
+        font-size: 1rem;
+        color: #aee7ff;
+        opacity: 0.8;
+      }
+
+      /* Mobile View */
+      @media (max-width: 500px) {
+        #system_container {
+          box-sizing: border-box;
+          width: 90vw;
+          height: 93vh;
+          background: rgba(0, 122, 209, 0.11);
+          border-radius: 12px;
+          display: flex;
+          flex-direction: column;
+          overflow: hidden;
+          backdrop-filter: blur(8px);
+          border: 1.5px solid rgba(0, 255, 255, 0.4);
+          box-shadow: 0 0 20px rgba(0, 255, 255, 0.3),
+            0 0 40px rgba(0, 122, 209, 0.2);
+        }
+      }
+
+      @media (min-width: 501px) {
+        #system_container {
+          box-sizing: border-box;
+          width: clamp(280px, 90vw, 800px);
+          height: clamp(300px, 80vh, 700px);
+          background: rgba(0, 122, 209, 0.11);
+          border-radius: 12px;
+          display: flex;
+          flex-direction: column;
+          overflow: hidden;
+          backdrop-filter: blur(8px);
+          border: 1.5px solid rgba(0, 255, 255, 0.4);
+          box-shadow: 0 0 20px rgba(0, 255, 255, 0.3),
+            0 0 40px rgba(0, 122, 209, 0.2);
+        }
       }
     </style>
   </head>
   <body>
-    <div class="system-window">
-      <div class="glow"></div>
-      <div class="text">SYSTEM ACTIVATED</div>
+    <div id="system_container">
+      <div id="status_container">
+        <h1 id="name">Andre</h1>
+        <div id="level_title_container">
+          <div id="level_container">
+            <h1>20</h1>
+            <h2>Level</h2>
+          </div>
+          <div id="title_container">
+            <h1>None</h1>
+            <h2>Title</h2>
+          </div>
+        </div>
+      </div>
     </div>
-
-    <audio id="systemSFX" src="system_open.mp3" preload="auto"></audio>
-
-    <script>
-      window.addEventListener("DOMContentLoaded", () => {
-        const systemWindow = document.querySelector(".system-window");
-        const sfx = document.getElementById("systemSFX");
-
-        // Create intro text
-        const intro = document.createElement("div");
-        intro.classList.add("intro");
-        intro.textContent = "Click to Activate System";
-        document.body.appendChild(intro);
-
-        const activateSystem = () => {
-          intro.style.opacity = "0";
-          setTimeout(() => intro.remove(), 500);
-
-          // Play SFX
-          sfx.volume = 0.5;
-          sfx.play();
-
-          // Trigger animation
-          systemWindow.style.animation = "none";
-          void systemWindow.offsetWidth; // reset animation
-          systemWindow.style.animation = "";
-          systemWindow.classList.add("active");
-        };
-
-        document.addEventListener("click", activateSystem, { once: true });
-        document.addEventListener("keydown", activateSystem, { once: true });
-      });
-    </script>
   </body>
 </html>
