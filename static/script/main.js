@@ -16,29 +16,36 @@ function activateSystem() {
   document.removeEventListener("click", activateSystem);
 }
 
-function show_add_task_window() {
+function showWindow(containerId, soundId) {
   const container = document.getElementById("system_container");
-  const task_container = document.getElementById("add_task_window");
+  const windowEl = document.getElementById(containerId);
+  const sound = document.getElementById(soundId);
 
-  // Start the reverse animation
+  // Play reverse animation on system container
   container.classList.remove("active");
-  void container.offsetWidth;
+  void container.offsetWidth; // force reflow
   container.classList.add("deactive");
 
+  // Listen for animation end
   container.addEventListener("animationend", function handler() {
-    // Hide system container immediately
-    container.style.display = "none";
+    container.style.display = "none"; // hide system container
 
-    // Delay 10ms before showing task window
+    // Delay slightly before showing target window
     setTimeout(() => {
-      sound.currentTime = 0;
-      sound.play().catch(() => {});
+      if (sound) {
+        sound.currentTime = 0;
+        sound.play().catch(() => {});
+      }
 
-      task_container.classList.add("active");
+      windowEl.classList.add("active"); // show the window
     }, 150);
 
     container.removeEventListener("animationend", handler);
   });
+}
+
+function show_add_task_window() {
+  showWindow("add_task_window", "openSound");
 }
 
 document.addEventListener("click", activateSystem);
@@ -66,8 +73,15 @@ document.addEventListener("click", (e) => {
 
 popUp.querySelectorAll("li").forEach((item) => {
   item.addEventListener("click", (e) => {
-    console.log("Clicked menu item:", item.textContent.trim());
-    console.log("On task:", activeTask.querySelector(".task_text").textContent);
+    item = item.textContent.trim();
+
+    console.log(item);
+
+    if (item == "Edit Task") {
+      showWindow("edit_task_window", "openSound");
+    } else if (item == "Delete Task") {
+      showWindow("delete_task_window", "openSound");
+    }
     popUp.classList.remove("active");
     activePopUp = null;
   });
