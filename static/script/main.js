@@ -104,17 +104,21 @@ document.addEventListener("click", (e) => {
   }
 });
 
-popUp.querySelectorAll("li").forEach((item) => {
-  item.addEventListener("click", (e) => {
-    item = item.textContent.trim();
+popUp.querySelectorAll("li").forEach((li) => {
+  li.addEventListener("click", (e) => {
+    const action = li.textContent.trim(); // Edit Task / Delete Task
 
-    console.log(item);
-
-    if (item == "Edit Task") {
+    if (action === "Edit Task") {
       showWindow("edit_task_window", "openSound");
-    } else if (item == "Delete Task") {
+    } else if (action === "Delete Task") {
       showWindow("delete_task_window", "openSound");
+
+      const taskName = activeTask
+        .querySelector(".task_text")
+        .textContent.trim();
+      document.getElementById("delete_task_name").textContent = taskName;
     }
+
     popUp.classList.remove("active");
     activePopUp = null;
   });
