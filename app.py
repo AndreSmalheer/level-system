@@ -1,5 +1,5 @@
 # app.py
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request
 import sqlite3
 from urllib.parse import unquote
 
@@ -55,6 +55,7 @@ def get_user():
         return None  # No stats found
 
     user = {
+        "id": user_id,
         "name": name,
         "level": stats_row["level"],
         "coins": stats_row["coins"],
@@ -68,7 +69,7 @@ def get_user():
     return user
 
 
-
+user = get_user()
 
 @app.route("/completed_task/<name>", methods=["POST"])
 def completed_task(name):
@@ -192,10 +193,36 @@ def uncomplete_task(name):
     })
 
 
+@app.route('/add_task', methods=['POST'])
+def add_task():
+    task_name = request.form.get('task_name')
+    coin_reward = request.form.get('coin_reward')
+    xp_reward = request.form.get('xp_reward')
+    start_time = request.form.get('start_time')
+    end_time = request.form.get('end_time')
+
+    if start_time == "":
+        start_time = "NULL"
+
+    if end_time == "":
+        end_time = "NULL"
+
+    conn = sqlite3.connect('data.db')
+    cursor = conn.cursor()
+
+    # Insert the data
+    cursor.execute('''
+     INSERT INTO tasks (user_id, task_name, coin_reward, xp_reward, start_time, end_time)
+     VALUES (?, ?, ?, ?, ?, ?)
+    ''', (user["id"], task_name, coin_reward, xp_reward, start_time, end_time))
+
+    conn.commit()
+    conn.close()    
+
+    return jsonify({"status": "success", "message": "Task added!"})
+
 @app.route('/')
 def home():
-    user = get_user()
-
     tasks = get_tasks()
 
     return render_template('index.html', user=user, tasks=tasks)
