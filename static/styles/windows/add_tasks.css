@@ -1,0 +1,95 @@
+#add_task_window form {
+  display: flex;
+  flex-direction: column;
+  padding: 32px;
+  gap: 16px;
+  color: #00eaff;
+  font-family: "Orbitron", sans-serif;
+}
+
+#add_task_window label {
+  font-size: 14px;
+  text-shadow: 0 0 6px rgba(0, 255, 255, 0.7);
+  letter-spacing: 0.5px;
+}
+
+#add_task_window input {
+  background: rgba(0, 122, 209, 0.08);
+  border: 1.5px solid rgba(0, 255, 255, 0.3);
+  border-radius: 10px;
+  padding: 10px 12px;
+  color: #00eaff;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.25s ease;
+  box-shadow: inset 0 0 8px rgba(0, 255, 255, 0.1);
+  text-shadow: 0 0 4px rgba(0, 255, 255, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+#add_task_window input:hover {
+  border-color: rgba(0, 255, 255, 0.6);
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.4),
+    inset 0 0 6px rgba(0, 255, 255, 0.2);
+  background: rgba(0, 122, 209, 0.12);
+}
+
+#add_task_window input:focus {
+  background: rgba(0, 255, 255, 0.15);
+  border-color: rgba(0, 255, 255, 0.9);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.6), 0 0 25px rgba(0, 200, 255, 0.3),
+    inset 0 0 10px rgba(0, 255, 255, 0.25);
+  transform: scale(1.02);
+}
+
+#add_task_window fieldset {
+  border: 1.5px solid rgba(0, 255, 255, 0.3);
+  border-radius: 10px;
+  padding: 12px;
+  text-shadow: 0 0 4px rgba(0, 255, 255, 0.6);
+}
+
+#add_task_window input[type="checkbox"] {
+  accent-color: #00eaff;
+  margin-right: 6px;
+}
+
+/* Optional: Make date and number pickers look consistent */
+#add_task_window input[type="date"],
+#add_task_window input[type="number"] {
+  color-scheme: dark;
+}
+
+#add_task_window input[type="submit"] {
+  margin-top: 12px;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 122, 209, 0.8),
+    rgba(0, 200, 255, 0.6)
+  );
+  border: 1.5px solid rgba(0, 200, 255, 0.4);
+  border-radius: 10px;
+  padding: 10px 14px;
+  color: #e0f7ff;
+  font-weight: bold;
+  font-family: "Orbitron", sans-serif;
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(0, 200, 255, 0.3),
+    inset 0 0 6px rgba(0, 200, 255, 0.15);
+  transition: all 0.3s ease;
+}
+
+#add_task_window input[type="submit"]:hover {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 153, 255, 0.7),
+    rgba(0, 122, 209, 0.65)
+  );
+  border-color: rgba(0, 255, 255, 0.5);
+  box-shadow: 0 0 18px rgba(0, 200, 255, 0.4),
+    inset 0 0 8px rgba(0, 255, 255, 0.2);
+  transform: scale(1.02);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+}

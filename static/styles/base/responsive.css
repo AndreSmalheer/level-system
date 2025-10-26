@@ -1,0 +1,13 @@
+@media (min-width: 501px) {
+  #system_container {
+    width: clamp(280px, 90vw, 800px);
+    height: clamp(300px, 80vh, 700px);
+  }
+}
+
+@media (max-width: 500px) {
+  #system_container {
+    width: 90vw;
+    height: 93vh;
+  }
+}

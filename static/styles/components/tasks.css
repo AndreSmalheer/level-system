@@ -1,0 +1,192 @@
+#tasks_container {
+  width: 90%;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  overflow-y: auto;
+}
+
+#tasks_container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
+.task {
+  background: rgba(0, 122, 209, 0.1);
+  border: 1.5px solid rgba(0, 200, 255, 0.4);
+  border-radius: 14px;
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  box-shadow: 0 4px 12px rgba(0, 200, 255, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.task.completed {
+  rgba(0, 80, 150, 0.3)  /* darker and slightly transparent */
+
+}
+
+.task:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 200, 255, 0.25);
+}
+
+.task_label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  flex: 1;
+}
+
+.task_checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 35px;
+  height: 35px;
+  border: 2px solid #00c8ff;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.15);
+  position: relative;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.task_checkbox:hover {
+  box-shadow: 0 0 10px #00c8ff;
+}
+
+.task_checkbox:checked {
+  background: #00c8ff;
+  border-color: #00e0ff;
+}
+
+.task_checkbox:checked::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 18px;
+  border: solid #000;
+  border-width: 0 3px 3px 0;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.task_text {
+  font-size: 1.3rem;
+  color: #00aaff;
+  user-select: none;
+  font-weight: 500;
+}
+
+.reward_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  /* background: rgba(0, 200, 255, 0.1); */
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-weight: 600;
+  color: #00c8ff;
+  margin-left: auto;
+}
+
+.coin_container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.coin_icon {
+  width: 20px;
+  height: 20px;
+}
+
+.reward_container h1 {
+  font-size: 1rem;
+  margin: 0;
+  color: #00c8ff;
+}
+
+.xp_container {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  /* background: rgba(0, 200, 255, 0.1); */
+  padding: 6px 10px;
+  border-radius: 10px;
+  /* border: 1px solid rgba(0, 200, 255, 0.3); */
+  /* box-shadow: 0 4px 10px rgba(0, 200, 255, 0.2); */
+  /* transition: transform 0.2s ease, box-shadow 0.2s ease; */
+  width: fit-content;
+}
+.coin_icon {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.2s ease;
+}
+
+.xp_container h1 {
+  font-size: 1rem;
+  margin: 0;
+  color: #00c8ff;
+  font-weight: 600;
+}
+
+.task-pop-up {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  background: rgba(0, 122, 209, 0.1);
+  border: 1.5px solid rgba(0, 200, 255, 0.4);
+  border-radius: 14px;
+  width: 180px; /* adjust as needed */
+  box-shadow: 0 4px 12px rgba(0, 200, 255, 0.2);
+  transition: opacity 0.2s ease, transform 0.15s ease;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  z-index: 1000;
+}
+
+.task-pop-up.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* The UL inside the popup */
+.task-pop-up ul {
+  list-style: none;
+  margin: 0;
+  padding: 8px 0;
+}
+
+/* Each menu item */
+.task-pop-up ul li {
+  padding: 10px 16px;
+  color: #00c8ff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Hover effect for glowing Solo Leveling style */
+.task-pop-up ul li:hover {
+  background: rgba(0, 200, 255, 0.2);
+  transform: translateX(3px);
+  box-shadow: 0 0 8px rgba(0, 200, 255, 0.4);
+}
+
+/* Optional: small icon inside li */
+.task-pop-up ul li img {
+  width: 18px;
+  height: 18px;
+}
