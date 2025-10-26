@@ -5,6 +5,8 @@
   gap: 16px;
   color: #00eaff;
   font-family: "Orbitron", sans-serif;
+  padding-top: 0;
+  overflow-y: auto;
 }
 
 #add_task_window label {
@@ -92,4 +94,36 @@
     inset 0 0 8px rgba(0, 255, 255, 0.2);
   transform: scale(1.02);
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+}
+
+.back-btn {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: rgba(0, 122, 209, 0.08);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  border: 2px solid rgba(0, 255, 255, 0.6);
+  margin-left: 10px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+/* Add arrow inside */
+.back-btn::before {
+  content: "←"; /* Unicode left arrow */
+  font-size: 24px;
+  color: #00eaff;
+  text-shadow: 0 0 6px #00ffff, 0 0 12px #00c8ff;
+}
+
+/* Hover effect */
+.back-btn:hover {
+  transform: scale(1.1);
+  /* background-color: rgba(0, 255, 255, 0.5); */
+  /* box-shadow: 0 0 15px #00ffff, 0 0 25px #00c8ff, 0 0 35px #00e0ff; */
+  /* background: linear-gradient(135deg, #00e0ff, #00ffff); */
 }
