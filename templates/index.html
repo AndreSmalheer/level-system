@@ -129,6 +129,29 @@
       </div>
 
       <div id="tasks_container">
+        <div class="task" id="55">
+          <label class="task_label">
+            <input type="checkbox" class="task_checkbox" />
+            <span class="task_text">Template task</span>
+
+            <div class="time_container">
+              <span class="start_time"">10:10</span>
+              <span class="end_time">12:20</span>
+            </div>
+
+            <div class="reward_container">
+              <div class="coin_container">
+                <img class="coin_icon" src="/static/images/icons/coin.png" />
+                <h1>2</h1>
+              </div>
+              <div class="xp_container">
+                <img class="coin_icon" src="/static/images/icons/coin.png" />
+                <h1>2</h1>
+              </div>
+            </div>
+          </label>
+        </div>
+
         {% for task in tasks %}
         <div class="task" id="{{ task.task_id }}">
           <label class="task_label">
