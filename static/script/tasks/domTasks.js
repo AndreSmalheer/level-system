@@ -1,3 +1,7 @@
+import { updateRewards } from "./taskRewards.js";
+import { initTaskPopUps } from "./taskPopups.js";
+import { initCheckboxes } from "./taskCheckboxes.js";
+
 export function addTaskToDOM(task) {
   const tasksContainer = document.getElementById("tasks_container");
 
@@ -14,12 +18,6 @@ export function addTaskToDOM(task) {
   checkbox.type = "checkbox";
   checkbox.classList.add("task_checkbox");
   if (task.completed) checkbox.checked = true;
-
-  checkbox.addEventListener("change", (event) => {
-    const taskLabel = event.target.closest(".task_label");
-    if (!taskLabel) return;
-    updateRewards(taskLabel, checkbox.checked);
-  });
 
   // Task name
   const span = document.createElement("span");
@@ -66,6 +64,9 @@ export function addTaskToDOM(task) {
 
   // Add task div to container
   tasksContainer.appendChild(taskDiv);
+
+  initTaskPopUps();
+  initCheckboxes();
 }
 
 export function removeTaskFromDOM(taskName) {

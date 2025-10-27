@@ -1,7 +1,7 @@
 import { switch_window } from "../system.js";
 import { removeTaskFromDOM } from "./domTasks.js";
 
-function initTaskPopUps() {
+export function initTaskPopUps() {
   const tasks = document.querySelectorAll(".task");
   const popUp = document.querySelector(".task-pop-up");
   let activeTask = null;

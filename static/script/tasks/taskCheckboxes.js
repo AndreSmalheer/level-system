@@ -1,6 +1,6 @@
 import { updateRewards } from "./taskRewards.js";
 
-function initCheckboxes() {
+export function initCheckboxes() {
   document.querySelectorAll(".task_checkbox").forEach((checkbox) => {
     checkbox.addEventListener("change", (event) => {
       const taskLabel = event.target.closest(".task_label");
