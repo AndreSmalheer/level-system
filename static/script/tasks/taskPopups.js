@@ -1,5 +1,6 @@
 import { switch_window } from "../system.js";
 import { removeTaskFromDOM } from "./domTasks.js";
+import { show_window } from "../windows/edit_task_window.js";
 
 export function initTaskPopUps() {
   const tasks = document.querySelectorAll(".task");
@@ -24,7 +25,7 @@ export function initTaskPopUps() {
     li.addEventListener("click", () => {
       const action = li.textContent.trim();
       if (action === "Edit Task") {
-        switch_window("edit_task_window");
+        show_window(activeTask);
       } else if (action === "Delete Task") {
         const taskName = activeTask
           .querySelector(".task_text")

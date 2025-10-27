@@ -37,6 +37,11 @@
       href="{{ url_for('static', filename='styles/windows/delete_task.css') }}"
     />
 
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles/components/form.css') }}"
+    />
+
     <script>
       let currentXP = {{ user.xp | tojson }};
       let nextLevelXP = {{ user.xp_to_next_level | tojson }};
@@ -183,7 +188,7 @@
 
     <div id="add_task_window" class="system-window">
       <div class="back-btn" onclick="switch_window('system_container')"></div>
-      <form id="add_task_form">
+      <form class="system-from" id="add_task_form">
         <label for="task_name">Task name</label>
         <input type="text" id="task_name" name="task_name" value="Task" />
 
@@ -237,6 +242,59 @@
 
     <div id="edit_task_window" class="system-window">
       <div class="back-btn" onclick="switch_window('system_container')"></div>
+
+      <form class="system-from" id="edit_task_form">
+        <input id="task_id" name="task_id" type="hidden" />
+
+        <label for="task_name">Task name</label>
+        <input type="text" id="task_name" name="task_name" value="Task" />
+
+        <label for="coin_reward">Coin reward</label>
+        <input type="number" id="coin_reward" name="coin_reward" value="2" />
+
+        <label for="xp_reward">XP reward</label>
+        <input type="number" id="xp_reward" name="xp_reward" value="2" />
+
+        <label for="start_time">Start time</label>
+        <input type="time" id="start_time" name="start_time" />
+
+        <label for="end_time">End time</label>
+        <input type="time" id="end_time" name="end_time" />
+
+        <fieldset>
+          <legend>Repeat on (select days)</legend>
+          <label
+            ><input type="checkbox" name="repeat_days" value="monday" />
+            Monday</label
+          >
+          <label
+            ><input type="checkbox" name="repeat_days" value="tuesday" />
+            Tuesday</label
+          >
+          <label
+            ><input type="checkbox" name="repeat_days" value="wednesday" />
+            Wednesday</label
+          >
+          <label
+            ><input type="checkbox" name="repeat_days" value="thursday" />
+            Thursday</label
+          >
+          <label
+            ><input type="checkbox" name="repeat_days" value="friday" />
+            Friday</label
+          >
+          <label
+            ><input type="checkbox" name="repeat_days" value="saturday" />
+            Saturday</label
+          >
+          <label
+            ><input type="checkbox" name="repeat_days" value="sunday" />
+            Sunday</label
+          >
+        </fieldset>
+
+        <input type="submit" value="Submit" />
+      </form>
     </div>
 
     <div id="delete_task_window" class="system-window">

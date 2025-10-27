@@ -111,3 +111,26 @@ export function removeTaskFromDOM(taskID) {
     console.warn("⚠️ Task not found in DOM:", taskID);
   }
 }
+
+export function updateTaskFromDOM(task) {
+  let taskID = task.task_id;
+  const taskContainer = document.getElementById("tasks_container");
+
+  const taskElement = taskContainer.querySelector(`.task[id="${taskID}"]`);
+
+  if (!taskElement) {
+    console.warn(`Task with ID ${taskID} not found in DOM.`);
+    return;
+  }
+
+  console.log(task);
+
+  if (taskElement) {
+    taskElement.querySelector(".task_text").textContent = task.task_name;
+    taskElement.querySelector(".start_time").textContent = task.start_time;
+    taskElement.querySelector(".end_time").textContent = task.end_time;
+    taskElement.querySelector(".coin_container h1").textContent =
+      task.coin_reward;
+    taskElement.querySelector(".xp_container h1").textContent = task.xp_reward;
+  }
+}

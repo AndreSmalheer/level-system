@@ -23,7 +23,8 @@ def get_tasks():
             "xp_reward": row["xp_reward"],
             "start_time": row["start_time"],
             "end_time": row["end_time"],
-            "completed": bool(row["completed"])
+            "completed": bool(row["completed"]),
+            "repeat_days": row["repeat_days"]
         }
         tasks.append(task)
 
@@ -253,6 +254,64 @@ def add_task():
     task_dict = dict(task)
 
     return jsonify({"status": "success", "message": "Task added!", "task": task_dict})
+
+@app.route("/getTaskDetails/<task_id>", methods=['POST'])
+def getTaskDetails(task_id):
+    tasks = get_tasks()
+
+    wanted_task = None
+
+    for task in tasks:
+     if int(task['task_id']) == int(task_id):
+         wanted_task = task
+
+    if wanted_task:
+        return jsonify({"status": "ok", "task": wanted_task})
+    else:
+        return jsonify({"status": "not found"})
+
+@app.route("/update_task/<task_id>", methods=['POST'])
+def update_task(task_id):
+    task_id = request.form.get('task_id')
+    task_name = request.form.get('task_name')
+    coin_reward = request.form.get('coin_reward')
+    xp_reward = request.form.get('xp_reward')
+    start_time = request.form.get('start_time')
+    end_time = request.form.get('end_time')
+    days = request.form.getlist('repeat_days')
+    repeat_days = ",".join(days) if days else None
+
+    task = {
+        "task_id": task_id,
+        "task_name": task_name,
+        "coin_reward": coin_reward,
+        "xp_reward": xp_reward,
+        "start_time": start_time,
+        "end_time": end_time,
+        "repeat_days": repeat_days
+        }
+
+
+    conn = sqlite3.connect('data.db')
+    cursor = conn.cursor()
+
+    cursor.execute('''
+    UPDATE tasks
+    SET
+        task_name = ?,
+        coin_reward = ?,
+        xp_reward = ?,
+        start_time = ?,
+        end_time = ?,
+        repeat_days = ?
+    WHERE
+        user_id = ? AND id = ?
+    ''', (task_name, coin_reward, xp_reward, start_time, end_time, repeat_days, user["id"], task_id))
+
+    conn.commit()
+    conn.close() 
+
+    return jsonify({"status": "ok", "task": task})
 
 @app.route('/')
 def home():
