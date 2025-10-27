@@ -8,6 +8,7 @@ export function addTaskToDOM(task) {
   // Create task wrapper
   const taskDiv = document.createElement("div");
   taskDiv.classList.add("task");
+  taskDiv.id = task.task_id;
 
   // Create label
   const label = document.createElement("label");
@@ -69,25 +70,20 @@ export function addTaskToDOM(task) {
   initCheckboxes();
 }
 
-export function removeTaskFromDOM(taskName) {
-  console.log("🗑️ Attempting to remove task:", taskName);
-
+export function removeTaskFromDOM(taskID) {
   // Find all task elements
   const taskElements = document.querySelectorAll(".task");
 
   let found = false;
 
   taskElements.forEach((taskDiv) => {
-    const span = taskDiv.querySelector(".task_text");
-    if (span && span.textContent === taskName) {
-      console.log("✅ Found matching task element:", taskDiv);
+    if (taskDiv.id == taskID) {
       taskDiv.remove();
-      console.log("🚮 Task removed from DOM successfully.");
       found = true;
     }
   });
 
   if (!found) {
-    console.warn("⚠️ Task not found in DOM:", taskName);
+    console.warn("⚠️ Task not found in DOM:", taskID);
   }
 }

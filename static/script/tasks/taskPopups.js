@@ -32,8 +32,9 @@ export function initTaskPopUps() {
         document.getElementById("delete_task_name").textContent = taskName;
 
         document.getElementById("confirm_delete_button").onclick = function () {
-          removeTaskFromDOM(taskName);
-          removeTask(taskName);
+          console.log();
+          removeTaskFromDOM(activeTask.id);
+          removeTask(activeTask.id);
         };
 
         switch_window("delete_task_window");

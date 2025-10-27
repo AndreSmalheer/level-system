@@ -130,7 +130,7 @@
 
       <div id="tasks_container">
         {% for task in tasks %}
-        <div class="task">
+        <div class="task" id="{{ task.task_id }}">
           <label class="task_label">
             <input
               type="checkbox"

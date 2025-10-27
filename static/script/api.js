@@ -13,8 +13,8 @@ export function setTaskStatus(taskName, completed) {
     .catch((err) => console.error("Error:", err));
 }
 
-export function removeTask(taskName) {
-  const url = `/delete_task/${encodeURIComponent(taskName)}`;
+export function removeTask(taskID) {
+  const url = `/delete_task/${encodeURIComponent(taskID)}`;
 
   fetch(url, { method: "POST" })
     .then((res) => {

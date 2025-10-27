@@ -14,7 +14,6 @@ document
     });
 
     const result = await response.json();
-    console.log(result);
 
     addTaskToDOM(result.task);
 

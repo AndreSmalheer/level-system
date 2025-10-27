@@ -17,6 +17,7 @@ def get_tasks():
     tasks = []
     for row in rows:
         task = {
+            "task_id": row["id"],
             "task_name": row["task_name"],
             "coin_reward": row["coin_reward"],
             "xp_reward": row["xp_reward"],
@@ -192,14 +193,14 @@ def uncomplete_task(name):
         "new_coins": new_coins
     })
 
-@app.route('/delete_task/<task_name>', methods=['POST'])
-def delete_task(task_name):
-    name = unquote(task_name)
+@app.route('/delete_task/<task_id>', methods=['POST'])
+def delete_task(task_id):
+    id = unquote(task_id)
     conn = sqlite3.connect('data.db')
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
 
-    cursor.execute("DELETE FROM tasks WHERE task_name = ?", (name,))
+    cursor.execute("DELETE FROM tasks WHERE id = ?", (id,))
     conn.commit()
     conn.close()
 
@@ -234,10 +235,13 @@ def add_task():
     VALUES (?, ?, ?, ?, ?, ?, ?)
     ''', (user["id"], task_name, coin_reward, xp_reward, start_time, end_time, repeat_days_str))
 
+    task_id = cursor.lastrowid
+
     conn.commit()
-    conn.close()    
+    conn.close() 
 
     task = {
+    "task_id": task_id,
     "task_name": request.form.get('task_name'),
     "coin_reward": request.form.get('coin_reward'),
     "xp_reward": request.form.get('xp_reward'),
