@@ -1,6 +1,7 @@
 # this interacts with the db to get task
 
 from database.db import get_connection 
+from datetime import datetime
 
 def get_tasks():
     conn = get_connection()
@@ -22,10 +23,28 @@ def get_tasks():
     conn.close()
     return tasks
 
+def get_today_repeating_tasks():
+    tasks = get_tasks()
+
+    today_tasks = []
+
+    current_day = datetime.now().strftime("%A").lower()
+
+    for task in tasks:
+        repeat_days = task['repeat_days']
+
+        if repeat_days != None:
+            if current_day in repeat_days:
+             today_tasks.append(task)
+        else:   
+            today_tasks.append(task)
+
+    return today_tasks 
+
 def delete_task_from_db(task_id):
     conn = get_connection()
     cursor = conn.cursor()
-    cursor.execute("DELETE FROM tasks WHERE task_id = ?", (task_id,))
+    cursor.execute("DELETE FROM tasks WHERE id = ?", (task_id,))
     conn.commit()
     conn.close()
 

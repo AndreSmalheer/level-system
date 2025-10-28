@@ -123,12 +123,21 @@ export function updateTaskFromDOM(task) {
     return;
   }
 
-  console.log(task);
+  // console.log(task);
+  const startTimeElem = taskElement.querySelector(".start_time");
+  const endTimeElem = taskElement.querySelector(".end_time");
 
   if (taskElement) {
     taskElement.querySelector(".task_text").textContent = task.task_name;
-    taskElement.querySelector(".start_time").textContent = task.start_time;
-    taskElement.querySelector(".end_time").textContent = task.end_time;
+
+    if (startTimeElem) {
+      startTimeElem.textContent = task.start_time;
+    }
+
+    if (endTimeElem) {
+      endTimeElem.textContent = task.end_time;
+    }
+
     taskElement.querySelector(".coin_container h1").textContent =
       task.coin_reward;
     taskElement.querySelector(".xp_container h1").textContent = task.xp_reward;

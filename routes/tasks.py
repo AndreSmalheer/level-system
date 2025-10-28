@@ -213,6 +213,17 @@ def update_task(task_id):
     days = request.form.getlist('repeat_days')
     repeat_days = ",".join(days) if days else None
 
+    if repeat_days:
+     repeat_days_str = ",".join(repeat_days)
+    else:
+     repeat_days_str = None
+
+    if start_time == "":
+        start_time = None
+
+    if end_time == "":
+        end_time = None
+
     task = {
         "task_id": task_id,
         "task_name": task_name,
@@ -220,7 +231,7 @@ def update_task(task_id):
         "xp_reward": xp_reward,
         "start_time": start_time,
         "end_time": end_time,
-        "repeat_days": repeat_days
+        "repeat_days": repeat_days_str
         }
 
 

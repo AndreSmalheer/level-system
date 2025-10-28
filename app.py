@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from database.user_queries import get_user
-from database.task_queries import get_tasks, mark_task_failed, delete_task_from_db
+from database.task_queries import get_tasks, mark_task_failed, delete_task_from_db, get_today_repeating_tasks
 from routes.tasks import delete_task
 from routes.tasks import tasks_bp
 from routes.user import user_bp
@@ -17,7 +17,10 @@ def reset_tasks():
         repeat_days = task['repeat_days']
 
         if repeat_days:
-            print("task has repeat days")
+            failed = task['failed']
+
+            if failed == False:
+                mark_task_failed(task['task_id'])
 
         else:
             completed = task['completed']
@@ -30,7 +33,6 @@ def reset_tasks():
                     mark_task_failed(task['task_id'])
 
  
-
 # def daily_task():
 #     print(f"Task running at {datetime.now()}")
 
@@ -53,11 +55,10 @@ app.register_blueprint(user_bp)
 @app.route('/')
 def home():
     user = get_user()
-    tasks = get_tasks()
+    tasks = get_today_repeating_tasks()
     return render_template('index.html', user=user, tasks=tasks)
 
 if __name__ == '__main__':
-    reset_tasks()
     app.run(host="0.0.0.0", port=5000, debug=True)
 
     
