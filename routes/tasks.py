@@ -4,6 +4,7 @@ from flask import Blueprint, jsonify, request
 from urllib.parse import unquote
 import sqlite3
 from database.db import get_connection
+from database.task_queries import delete_task_from_db
 from database.user_queries import get_user
 from database.task_queries import get_tasks
 from database.user_queries import get_user
@@ -134,14 +135,7 @@ def uncomplete_task(name):
 
 @tasks_bp.route('/delete_task/<task_id>', methods=['POST'])
 def delete_task(task_id):
-    id = unquote(task_id)
-    conn = sqlite3.connect('data.db')
-    conn.row_factory = sqlite3.Row
-    cursor = conn.cursor()
-
-    cursor.execute("DELETE FROM tasks WHERE id = ?", (id,))
-    conn.commit()
-    conn.close()
+    delete_task_from_db(task_id)
 
     return jsonify({"success": True})
 

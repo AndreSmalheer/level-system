@@ -15,8 +15,25 @@ def get_tasks():
         "start_time": row["start_time"],
         "end_time": row["end_time"],
         "completed": bool(row["completed"]),
+        "failed": bool(row['failed']),
         "repeat_days": row["repeat_days"]
     } for row in rows]
     cursor.close()
     conn.close()
     return tasks
+
+def delete_task_from_db(task_id):
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM tasks WHERE task_id = ?", (task_id,))
+    conn.commit()
+    conn.close()
+
+def mark_task_failed(task_id):
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("UPDATE tasks SET failed = 1 WHERE id = ?", (task_id,))
+
+    conn.commit()
+    conn.close()
