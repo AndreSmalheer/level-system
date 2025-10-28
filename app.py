@@ -3,8 +3,27 @@ from database.user_queries import get_user
 from database.task_queries import get_tasks
 from routes.tasks import tasks_bp
 from routes.user import user_bp
+from flask_apscheduler import APScheduler
+from datetime import datetime
 
 app = Flask(__name__)
+scheduler = APScheduler()
+
+
+# def daily_task():
+#     print(f"Task running at {datetime.now()}")
+
+
+# scheduler.add_job(
+#     id='daily_task',
+#     func=daily_task,
+#     trigger='cron',
+#     hour=7,
+#     minute=1
+# )
+
+# scheduler.init_app(app)
+# scheduler.start()
 
 # Register blueprints
 app.register_blueprint(tasks_bp)

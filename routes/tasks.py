@@ -1,3 +1,5 @@
+# exposes all the task routes to the fask app
+
 from flask import Blueprint, jsonify, request
 from urllib.parse import unquote
 import sqlite3

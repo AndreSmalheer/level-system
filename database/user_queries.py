@@ -1,3 +1,5 @@
+# this interacts with the db to get users
+
 from database.db import get_connection  
 
 def get_user():

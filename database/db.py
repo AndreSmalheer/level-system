@@ -1,3 +1,5 @@
+# use this function to connect to the db
+
 import sqlite3
 import os
 
