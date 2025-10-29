@@ -3,24 +3,26 @@ import { updateRewards } from "./taskRewards.js";
 export function initCheckboxes() {
   document.querySelectorAll(".task_checkbox").forEach((checkbox) => {
     checkbox.addEventListener("change", (event) => {
-      const taskLabel = event.target.closest(".task_label");
       const taskContainer = event.target.closest(".task");
-      if (!taskLabel) return;
+      const task_id = taskContainer.id;
+
+      if (!taskContainer) return;
+
+      if (!task_id) return;
 
       if (taskContainer.classList.contains("failed")) {
-        console.log("Task failed");
+        console.log(`Task failed for task ${taskContainer.id}`);
         return;
       }
 
-      const task = taskLabel.closest(".task");
-      if (!task.classList.contains("failed")) {
+      if (!taskContainer.classList.contains("failed")) {
         if (checkbox.checked) {
-          task.classList.add("completed");
+          taskContainer.classList.add("completed");
         } else {
-          task.classList.remove("completed");
+          taskContainer.classList.remove("completed");
         }
       }
-      updateRewards(taskLabel, checkbox.checked);
+      updateRewards(task_id);
     });
   });
 }
