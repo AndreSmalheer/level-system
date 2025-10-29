@@ -57,7 +57,16 @@ def mark_task_failed(task_id):
     conn = get_connection()
     cursor = conn.cursor()
 
-    cursor.execute("UPDATE tasks SET failed = 1 WHERE id = ?", (task_id,))
+    # cursor.execute("UPDATE tasks SET failed = 1 WHERE id = ?", (task_id,))
 
+    # get random punisment
+    cursor.execute("SELECT penalty_id, name, description FROM penalties ORDER BY RANDOM() LIMIT 1")
+    penalty = cursor.fetchone()
+
+    if penalty:
+     penalty_id, penalty_name, penalty_description = penalty
+
+     cursor.execute("""UPDATE tasks SET failed = 1, penelty_id = ? WHERE id = ?""", (penalty_id, task_id))
+     
     conn.commit()
     conn.close()
