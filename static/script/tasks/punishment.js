@@ -1,7 +1,13 @@
-import { getTaskDetails, getPunishmentDetail } from "../api.js";
+import {
+  getTaskDetails,
+  getPunishmentDetail,
+  add_punishment_as_task,
+  removeTask,
+} from "../api.js";
 import { show_window, switch_window } from "../system.js";
+import { addTaskToDOM, removeTaskFromDOM } from "./domTasks.js";
 
-export function accept_punishment(punishment, task) {
+export async function accept_punishment(punishment, task) {
   if (punishment == `none`) {
     console.warn("no punishment previded");
     return;
@@ -13,8 +19,16 @@ export function accept_punishment(punishment, task) {
     xp_reward: task.xp_reward * -2,
   };
 
-  // add punisment as a task
-  // remove failed task
+  let result = await add_punishment_as_task(exported_task);
+
+  console.log(result);
+
+  addTaskToDOM(result.punishment);
+  removeTaskFromDOM(task.task_id);
+
+  removeTask(task.task_id);
+
+  switch_window("system_container");
 }
 
 export async function setup_accepet_punishment_window(task_id) {

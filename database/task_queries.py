@@ -51,14 +51,14 @@ def get_punishment(punishment_id):
     conn = get_connection()
     cursor = conn.cursor()
     cursor.execute(
-        "SELECT name, description FROM penalties WHERE penalty_id = ?", 
+        "SELECT name, description, penalty_id FROM penalties WHERE penalty_id = ?", 
         (punishment_id,)
     )
     row = cursor.fetchone()
     conn.close()
 
     if row:
-        return {"name": row[0], "description": row[1]}
+        return {"name": row[0], "description": row[1], "penalty_id": row[2]}
     else:
         return {"error": "Punishment not found"}
 

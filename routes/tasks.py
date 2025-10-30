@@ -8,6 +8,7 @@ from database.task_queries import delete_task_from_db, get_punishment
 from database.user_queries import get_user
 from database.task_queries import get_tasks
 from database.user_queries import get_user
+import json
 
 user = get_user()
 
@@ -187,6 +188,42 @@ def add_task():
 
     return jsonify({"status": "success", "message": "Task added!", "task": task_dict})
 
+@tasks_bp.route('/add_punishment_as_task', methods=['POST'])
+def add_punishment_as_task():
+   punishment = request.get_json()
+
+   task_name = punishment['task_name']
+   coin_reward = punishment['coin_reward']
+   xp_reward = punishment['xp_reward']
+   start_time = None
+   end_time = None
+   repeat_days = None
+
+   conn = get_connection()
+   cursor = conn.cursor()   
+   cursor.execute('''
+   INSERT INTO tasks (user_id, task_name, coin_reward, xp_reward, start_time, end_time, repeat_days)
+   VALUES (?, ?, ?, ?, ?, ?, ?)
+   ''', (user["id"], task_name, coin_reward, xp_reward, start_time, end_time, repeat_days))
+
+   task_id = cursor.lastrowid
+
+   conn.commit()
+   conn.close()
+
+   punishment_dict = {
+    "task_id": task_id,
+    "task_name": task_name,
+    "coin_reward": coin_reward,
+    "xp_reward": xp_reward,
+    "start_time": start_time,
+    "end_time": end_time,
+    "repeat_days": repeat_days
+   }
+
+   return jsonify({"status": "success", "message": "punishment added!", "punishment": punishment_dict})
+
+   
 @tasks_bp.route("/getTaskDetails/<task_id>", methods=['POST'])
 def getTaskDetails(task_id):
     tasks = get_tasks()

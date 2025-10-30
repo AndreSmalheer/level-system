@@ -22,7 +22,7 @@ export function removeTask(taskID) {
       return res.json();
     })
     .then((data) => {
-      console.log("Deleted:", data);
+      // console.log("Deleted:", data);
     })
     .catch((err) => console.error("Error:", err));
 
@@ -47,6 +47,23 @@ export async function getPunishmentDetail(punishment_id) {
 
   try {
     const res = await fetch(url, { method: "POST" });
+    if (!res.ok) throw new Error("Request failed: " + res.status);
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    console.error("Error:", err);
+  }
+}
+
+export async function add_punishment_as_task(punishment) {
+  const url = `/add_punishment_as_task`;
+
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(punishment),
+    });
     if (!res.ok) throw new Error("Request failed: " + res.status);
     const data = await res.json();
     return data;
