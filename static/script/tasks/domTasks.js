@@ -238,6 +238,20 @@ export async function updateTaskFromDOM(task) {
   taskElement.querySelector(".xp_container h1").textContent = task.xp_reward;
 }
 
+export function clearAllTasksFromDOM() {
+  const tasksContainer = document.getElementById("tasks_container");
+  tasksContainer.innerHTML = "";
+}
+
+export function resetTaskDOM(taskID) {
+  const taskElement = document.getElementById(taskID);
+  if (!taskElement) return;
+
+  taskElement.classList.remove("failed", "completed");
+  const checkbox = taskElement.querySelector(".task_checkbox");
+  if (checkbox) checkbox.checked = false;
+}
+
 for (const task of tasks) {
   if (shouldDisplayTask(task)) {
     addTaskToDOM(task);
