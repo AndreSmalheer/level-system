@@ -4,10 +4,9 @@ export function show_window(windowId) {
   const container = document.getElementById(windowId);
   if (!container) return;
 
-  document
-    .getElementById("openSound")
-    .play()
-    .catch((e) => {});
+  const audio = document.getElementById("openSound");
+  audio.currentTime = 0;
+  audio.play().catch((e) => {});
 
   current_window = windowId;
   container.style.display = "flex";
