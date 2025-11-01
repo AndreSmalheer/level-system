@@ -173,8 +173,10 @@ export async function updateTaskFromDOM(task) {
 
   let repeat_days = task.repeat_days || [];
 
-  if (!repeat_days.includes(today)) {
-    taskElement.style.display = "none";
+  if (repeat_days.length > 0) {
+    if (!repeat_days.includes(today)) {
+      taskElement.style.display = "none";
+    }
   }
 
   if (task.start_time || task.end_time) {
