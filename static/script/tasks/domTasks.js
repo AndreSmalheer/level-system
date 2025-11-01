@@ -41,6 +41,9 @@ export function shouldDisplayTask(task) {
 }
 
 export async function addTaskToDOM(task) {
+  // Only display the task if it passes the shouldDisplayTask check
+  if (!shouldDisplayTask(task)) return;
+
   const tasksContainer = document.getElementById("tasks_container");
 
   // Create task wrapper
@@ -68,47 +71,40 @@ export async function addTaskToDOM(task) {
     const timeContainer = document.createElement("div");
     timeContainer.classList.add("time_container");
 
-    const now = new Date();
-    const currentHour = now.getHours();
-    const currentMn = now.getMinutes();
-    const currentTime = currentHour * 60 + currentMn;
-
     if (task.start_time) {
       const startTime = document.createElement("span");
       startTime.textContent = task.start_time;
-
-      const [startHourStr, startMnStr] = task.start_time.split(":");
-      const startMnTotal = parseInt(startHourStr) * 60 + parseInt(startMnStr);
-
-      if (startMnTotal < currentTime) {
-        startTime.classList.add("start_time");
-        timeContainer.appendChild(startTime);
-      } else {
-        return;
-      }
+      startTime.classList.add("start_time");
+      timeContainer.appendChild(startTime);
     }
 
     if (task.end_time) {
       const endTime = document.createElement("span");
       endTime.textContent = task.end_time;
-      const [endHourStr, endMnStr] = task.end_time.split(":");
-      const endMnTotal = parseInt(endHourStr) * 60 + parseInt(endMnStr);
+      endTime.classList.add("end_time");
 
-      if (endMnTotal < currentTime) {
+      // Mark failed if the end time has passed and task is not completed
+      const now = new Date();
+      const [endHourStr, endMinuteStr] = task.end_time.split(":");
+      const endTimeTotal = parseInt(endHourStr) * 60 + parseInt(endMinuteStr);
+      const currentTime = now.getHours() * 60 + now.getMinutes();
+
+      if (endTimeTotal < currentTime) {
         taskDiv.classList.add("failed");
-        // console.log(task.penelty_id);
         if (!task.completed && task.penelty_id == null) {
-          let data = await markTaskAsFailed(task.task_id);
+          await markTaskAsFailed(task.task_id);
         }
       }
 
-      endTime.classList.add("end_time");
-      endTime.textContent = task.end_time;
       timeContainer.appendChild(endTime);
     }
 
-    // Add time container before reward container
     label.appendChild(timeContainer);
+  }
+
+  // mar failed if task failed if value if failed
+  if (task.failed) {
+    taskDiv.classList.add("failed");
   }
 
   // Reward container
@@ -137,7 +133,6 @@ export async function addTaskToDOM(task) {
   xpContainer.appendChild(xpIcon);
   xpContainer.appendChild(xpAmount);
 
-  // Assemble reward container
   rewardContainer.appendChild(coinContainer);
   rewardContainer.appendChild(xpContainer);
 
@@ -149,30 +144,12 @@ export async function addTaskToDOM(task) {
   // Add label to task div
   taskDiv.appendChild(label);
 
-  let repeat_days = task.repeat_days || [];
+  // Add task to DOM
+  tasksContainer.appendChild(taskDiv);
 
-  console.log(repeat_days);
-
-  if (repeat_days.length > 0) {
-    const today = new Date()
-      .toLocaleDateString("en-US", { weekday: "long" })
-      .toLowerCase();
-
-    if (repeat_days.includes(today)) {
-      // Add task div to container
-      tasksContainer.appendChild(taskDiv);
-
-      // Reinitialize functions
-      initTaskPopUps();
-      initCheckboxes();
-    }
-  } else if (repeat_days.length === 0) {
-    tasksContainer.appendChild(taskDiv);
-
-    // Reinitialize functions
-    initTaskPopUps();
-    initCheckboxes();
-  }
+  // Reinitialize UI functions
+  initTaskPopUps();
+  initCheckboxes();
 }
 
 export function removeTaskFromDOM(taskID) {
@@ -253,7 +230,5 @@ export function resetTaskDOM(taskID) {
 }
 
 for (const task of tasks) {
-  if (shouldDisplayTask(task)) {
-    addTaskToDOM(task);
-  }
+  addTaskToDOM(task);
 }
