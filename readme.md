@@ -22,3 +22,10 @@ This project is meant to recreate the system from _Solo Leveling_ to help motiva
 Currently a work in progress — setup instructions will be added once the system is stable.
 
 For now, you can clone the repository and explore the source code
+
+## Tools Used
+- Flask for hosting the server
+- Python for backend interaction and database management
+- Database for data storage
+- JavaScript for logic
+- HTML/CSS for styling
