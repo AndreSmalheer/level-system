@@ -2,6 +2,14 @@
 
 from database.db import get_connection  
 
+def change_user_name(user_id, new_name):
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("UPDATE users SET name = ? WHERE id = ?", (new_name, user_id))
+    conn.commit()
+    cursor.close()
+    conn.close()
+
 def add_user(name):
     default_stats = {
         "level": 1,

@@ -74,6 +74,11 @@
     ></script>
     <script
       type="module"
+      src="{{ url_for('static', filename='script/windows/settings.js') }}"
+      defer
+    ></script>
+    <script
+      type="module"
       src="{{ url_for('static', filename='script/windows/add_user_window.js') }}"
       defer
     ></script>
@@ -177,6 +182,17 @@
         <label for="user_name">User name</label>
         <input type="text" id="user_name" name="user_name" value="User" />
         <input type="submit" value="Submit" />
+      </form>
+    </div>
+
+    <div id="settings_window" class="system-window">
+      <div class="back-btn" onclick="switch_window('system_container')"></div>
+      <form class="system-from" id="settings_form">
+
+        <label>User Name</label>
+        <input type="text" id="setting_user_name" name="setting_user_name" value="" />
+
+        <input type="submit" value="Save Settings" />
       </form>
     </div>
 
