@@ -19,23 +19,23 @@ export function shouldDisplayTask(task) {
   }
 
   // Check start time
-  if (task.start_time) {
-    const [startHourStr, startMinuteStr] = task.start_time.split(":");
-    const startTimeTotal =
-      parseInt(startHourStr) * 60 + parseInt(startMinuteStr);
-    if (currentTime < startTimeTotal) {
-      return false;
-    }
-  }
+  // if (task.start_time) {
+  //   const [startHourStr, startMinuteStr] = task.start_time.split(":");
+  //   const startTimeTotal =
+  //     parseInt(startHourStr) * 60 + parseInt(startMinuteStr);
+  //   if (currentTime < startTimeTotal) {
+  //     return false;
+  //   }
+  // }
 
   // Check end time
-  if (task.end_time) {
-    const [endHourStr, endMinuteStr] = task.end_time.split(":");
-    const endTimeTotal = parseInt(endHourStr) * 60 + parseInt(endMinuteStr);
-    if (currentTime > endTimeTotal) {
-      return false;
-    }
-  }
+  // if (task.end_time) {
+  //   const [endHourStr, endMinuteStr] = task.end_time.split(":");
+  //   const endTimeTotal = parseInt(endHourStr) * 60 + parseInt(endMinuteStr);
+  //   if (currentTime > endTimeTotal) {
+  //     return false;
+  //   }
+  // }
 
   return true;
 }
@@ -74,8 +74,21 @@ export async function addTaskToDOM(task) {
     if (task.start_time) {
       const startTime = document.createElement("span");
       startTime.textContent = task.start_time;
+      const [startHourStr, startMinuteStr] = startTime.textContent.split(":");
+
+      const now = new Date();
+      const currentHour = now.getHours();
+      const currentMinute = now.getMinutes();
+      const currentTime = currentHour * 60 + currentMinute;
+
+      const startTimeTotal = parseInt(startHourStr) * 60 + parseInt(startMinuteStr);
+
       startTime.classList.add("start_time");
       timeContainer.appendChild(startTime);
+
+      if (startTimeTotal > currentTime) {
+        taskDiv.classList.add("scheduled");
+      }
     }
 
     if (task.end_time) {
