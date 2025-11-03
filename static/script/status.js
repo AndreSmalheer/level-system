@@ -1,4 +1,4 @@
-function set_xp(amount) {
+function set_xp(amount, nextLevelXP) {
   const progressBar = document.getElementById("progress_bar");
   const progressPercent = (amount / nextLevelXP) * 100;
   progressBar.style.width = `${progressPercent}%`;
@@ -45,4 +45,33 @@ export function add_coins(amount) {
   h1.innerHTML = current_coins;
 }
 
-set_xp(currentXP);
+function load_user_data(level, xp, coins, xpNeeded, user_name) {
+  if (user_name == "none") {
+    console.warn("No user data found.");
+    return;
+  }
+
+  document.getElementById("level_container").querySelector("h1").innerHTML =
+    level;
+
+  document.getElementById("coin_container").querySelector("h1").innerHTML =
+    coins;
+
+  document.getElementById("xp_needed").innerHTML = xpNeeded;
+
+  document.getElementById("current_xp").innerHTML = xp;
+
+  set_xp(currentXP, xpNeeded);
+
+  document.getElementById("name").innerHTML = user_name;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  load_user_data(
+    currentLevel,
+    currentXP,
+    current_coins,
+    nextLevelXP,
+    user_name
+  );
+});

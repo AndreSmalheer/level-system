@@ -52,11 +52,12 @@
     />
 
     <script>
-      let currentXP = {{ user.xp | tojson }};
-      let nextLevelXP = {{ user.xp_to_next_level | tojson }};
-      let currentLevel = {{ user.level | tojson }};
-      let current_coins  = {{ user.coins | tojson }};
-      let tasks = {{ tasks | tojson }};
+      let currentXP = {{ (user.xp | default(0)) | tojson }};
+      let nextLevelXP = {{ (user.xp_to_next_level | default(0)) | tojson }};
+      let currentLevel = {{ (user.level | default(0)) | tojson }};
+      let current_coins = {{ (user.coins | default(0)) | tojson }};
+      let tasks = {{ (tasks | default([])) | tojson }};
+      let user_name = {{ (user.name | default("none")) | tojson }};
     </script>
 
     <script
@@ -123,14 +124,14 @@
 
     <div id="system_container" class="system-window">
       <div id="status_container">
-        <h1 id="name">{{ user.name }}</h1>
+        <h1 id="name"></h1>
         <div id="level_coin_container">
           <div id="level_container">
-            <h1>{{ user.level }}</h1>
+            <h1></h1>
             <h2>Level</h2>
           </div>
           <div id="coin_container">
-            <h1>{{ user.coins }}</h1>
+            <h1></h1>
             <h2>Coins</h2>
           </div>
         </div>
@@ -140,9 +141,9 @@
         </div>
 
         <div id="progress_texts">
-          <span id="current_xp">{{ user.xp }}</span>
+          <span id="current_xp"></span>
           <span id="xp_label">XP</span>
-          <span id="xp_needed">{{ user.xp_to_next_level }}</span>
+          <span id="xp_needed">20</span>
         </div>
       </div>
 
