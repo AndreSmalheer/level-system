@@ -1,0 +1,24 @@
+#task_container {
+  display: none;
+}
+
+#concecenses_container {
+  display: none;
+}
+
+.view-selector {
+  list-style: none;
+  display: flex;
+  gap: 10px;
+  margin: 20px;
+}
+.view-item {
+  padding: 10px 20px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.view-item.active {
+  background-color: #007bff;
+  color: white;
+}
