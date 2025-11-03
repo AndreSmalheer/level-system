@@ -51,6 +51,11 @@ export async function addTaskToDOM(task) {
   taskDiv.classList.add("task");
   taskDiv.id = task.task_id;
 
+  let task_completed = task.completed || false;
+  if (task_completed) {
+    taskDiv.classList.add("completed");
+  }
+
   // Create label
   const label = document.createElement("label");
   label.classList.add("task_label");
