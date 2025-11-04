@@ -56,7 +56,6 @@
       href="{{ url_for('static', filename='styles/windows/add_user_window.css') }}"
     />
 
-
     <script>
       let user_data = true;
       let currentXP = {{ (user.xp | default(0)) | tojson }};
@@ -117,7 +116,11 @@
       src="{{ url_for('static', filename='script/tasks/taskRewards.js') }}"
       defer
     ></script>
-
+    <script
+      type="module"
+      src="{{ url_for('static', filename='script/actionItem.js') }}"
+      defer
+    ></script>
     <script type="module">
       import { switch_window } from "{{ url_for('static', filename='script/system.js') }}";
       window.switch_window = switch_window;
@@ -141,7 +144,12 @@
 
     <div id="system_container" class="system-window">
       <div id="status_container">
-        <div id="settings_icon"><img src="{{ url_for('static', filename='images/icons/settings.png') }}" alt="Settings" /></div>
+        <div id="settings_icon">
+          <img
+            src="{{ url_for('static', filename='images/icons/settings.png') }}"
+            alt="Settings"
+          />
+        </div>
         <h1 id="name"></h1>
         <div id="level_coin_container">
           <div id="level_container">
@@ -175,7 +183,7 @@
 
     <div id="add_user_window" class="system-window">
       <div id="welcome_message_container">
-       <h1 id="welcome_message">Welcome new User</h1>
+        <h1 id="welcome_message">Welcome new User</h1>
       </div>
 
       <form class="system-from" id="add_user_form">
@@ -188,9 +196,13 @@
     <div id="settings_window" class="system-window">
       <div class="back-btn" onclick="switch_window('system_container')"></div>
       <form class="system-from" id="settings_form">
-
         <label>User Name</label>
-        <input type="text" id="setting_user_name" name="setting_user_name" value="" />
+        <input
+          type="text"
+          id="setting_user_name"
+          name="setting_user_name"
+          value=""
+        />
 
         <input type="submit" value="Save Settings" />
       </form>
