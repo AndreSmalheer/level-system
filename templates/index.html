@@ -55,14 +55,9 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='styles/windows/add_user_window.css') }}"
     />
-    `
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='styles/components/actionItems.css') }}"
-    />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='styles/components/popup.css') }}"
     />
 
     <script>
@@ -125,11 +120,7 @@
       src="{{ url_for('static', filename='script/tasks/taskRewards.js') }}"
       defer
     ></script>
-    <script
-      type="module"
-      src="{{ url_for('static', filename='script/actionItem.js') }}"
-      defer
-    ></script>
+
     <script type="module">
       import { switch_window } from "{{ url_for('static', filename='script/system.js') }}";
       window.switch_window = switch_window;
