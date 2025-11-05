@@ -28,10 +28,10 @@ export class ActionItem {
     if (!container) return;
 
     this.actionDiv = document.createElement("div");
-    this.actionDiv.classList.add("task");
+    this.actionDiv.classList.add("actionItem");
 
     const labelWrapper = document.createElement("label");
-    labelWrapper.classList.add("task_label");
+    labelWrapper.classList.add("actionLabel");
     this.actionDiv.appendChild(labelWrapper);
 
     this._addCheckbox(labelWrapper);
@@ -48,7 +48,7 @@ export class ActionItem {
 
     const input = document.createElement("input");
     input.type = "checkbox";
-    input.classList.add("task_checkbox");
+    input.classList.add("action_chekbox");
     input.addEventListener("click", (e) => {
       e.stopPropagation();
       this.actionDiv.classList.toggle("completed", e.target.checked);
@@ -58,7 +58,7 @@ export class ActionItem {
 
   _addLabelText(labelWrapper) {
     this.labelSpan = document.createElement("span");
-    this.labelSpan.classList.add("task_text");
+    this.labelSpan.classList.add("actionText");
     this.labelSpan.textContent = this.label;
     labelWrapper.appendChild(this.labelSpan);
   }
@@ -164,6 +164,8 @@ function dryDishes() {
 const action = new ActionItem({
   label: "Do the dishes",
   checkbox: true,
+  xp_reward: 20,
+  coin_reward: 10,
   popup: true,
   popupData: [
     { text: "Wash dishes", click: washDishes },
@@ -173,9 +175,9 @@ const action = new ActionItem({
 });
 
 // example
-// const action_2 = new ActionItem({
-//   label: "Do the dishes",
-// });
+const action_2 = new ActionItem({
+  label: "Do the dishes",
+});
 
-// action.create();
-// action_2.create();
+action.create();
+action_2.create();

@@ -1,0 +1,47 @@
+.task-pop-up {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  background: rgba(0, 122, 209, 0.1);
+  border: 1.5px solid rgba(0, 200, 255, 0.4);
+  border-radius: 14px;
+  width: 180px;
+  box-shadow: 0 4px 12px rgba(0, 200, 255, 0.2);
+  transition: opacity 0.2s ease, transform 0.15s ease;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  z-index: 1000;
+}
+
+.task-pop-up.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.task-pop-up ul {
+  list-style: none;
+  margin: 0;
+  padding: 8px 0;
+}
+
+.task-pop-up ul li {
+  padding: 10px 16px;
+  color: #00c8ff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.task-pop-up ul li:hover {
+  background: rgba(0, 200, 255, 0.2);
+  transform: translateX(3px);
+  box-shadow: 0 0 8px rgba(0, 200, 255, 0.4);
+}
+
+.task-pop-up ul li img {
+  width: 18px;
+  height: 18px;
+}
