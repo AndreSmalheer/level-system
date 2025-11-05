@@ -1,0 +1,38 @@
+#selection_list {
+  list-style: none;
+  display: flex;
+  gap: 9px;
+  align-self: center;
+}
+
+#selection_list li {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  cursor: pointer;
+  position: relative;
+}
+
+#selection_list li::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.6);
+  transition: width 0.2s ease-in-out;
+}
+
+#selection_list li:hover::after {
+  width: 100%;
+}
+
+#selection_list li.active {
+  color: #5fbfff;
+}
+
+#selection_list li.active::after {
+  width: 100%;
+  background-color: rgba(0, 200, 255, 0.4);
+}
