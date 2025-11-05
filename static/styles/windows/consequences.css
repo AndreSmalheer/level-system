@@ -1,3 +1,51 @@
 #consequences_container {
+  width: 90%;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  overflow-y: auto;
   display: none;
+}
+
+#consequences_container::-webkit-scrollbar {
+  display: none;
+}
+
+.consequence {
+  background: rgba(0, 122, 209, 0.1);
+  border: 1.5px solid rgba(0, 200, 255, 0.4);
+  border-radius: 14px;
+  padding: 12px 18px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  box-shadow: 0 4px 12px rgba(0, 200, 255, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  height: clamp(40px, 6vh, 160px);
+  align-items: center;
+  display: flex;
+}
+
+.task:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 200, 255, 0.25);
+}
+
+.consequence_label {
+  position: relative;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  cursor: pointer;
+  flex: 1;
+}
+
+.consequence_text {
+  font-size: 1.3rem;
+  color: #00aaff;
+  user-select: none;
+  font-weight: 500;
 }
