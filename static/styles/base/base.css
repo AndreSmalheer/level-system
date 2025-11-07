@@ -64,26 +64,25 @@ body {
   right: 20px;
 }
 
-
-#settings_icon{
+#settings_icon {
   top: 10px;
   left: 10px;
   position: absolute;
 }
 
-#settings_icon img{
+#settings_icon img {
   width: 30px;
   height: 30px;
   cursor: pointer;
   display: block;
   transform-origin: center;
   will-change: transform;
-  
-  backface-visibility: hidden;      
+
+  backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   transform-style: preserve-3d;
 }
 
-#settings_icon:hover{
-  transform: scale(1.1);    
+#settings_icon:hover {
+  transform: scale(1.1);
 }

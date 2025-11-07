@@ -39,6 +39,10 @@ function handlePopUpAction(action, activeTask, popUp) {
   popUp.classList.remove("active");
 }
 
+function handleConsequenceAction(action, activeConsequence, popUp) {
+  return;
+}
+
 function updateTaskPopUp(popUp, task) {
   // Save original content if not already saved
   if (!popUp.dataset.original) {
@@ -67,44 +71,83 @@ function updateTaskPopUp(popUp, task) {
   return true; // indicate popup is available
 }
 
-export function initTaskPopUps() {
-  const tasks = document.querySelectorAll(".task");
-  const popUp = document.querySelector(".task-pop-up");
-  let activeTask = null;
+function updateConsequencePopUp(popUp, consequence) {
+  // Save original content if not already saved
+  if (!popUp.dataset.original) {
+    popUp.dataset.original = popUp.innerHTML;
+  }
 
-  tasks.forEach((task) => {
-    task.addEventListener("contextmenu", (e) => {
+  // Set popup content for consequences
+  popUp.innerHTML = `
+    <ul>
+      <li>Edit Consequence</li>
+      <li>Delete Consequence</li>
+    </ul>
+  `;
+
+  return true;
+}
+
+function attachPopUpListeners(elements, popUp, updateFunction, handleFunction) {
+  if (!popUp) {
+    console.warn("Popup element not found for these elements:", elements);
+    return; // stop here if popup not in DOM
+  }
+
+  let activeElement = null;
+
+  elements.forEach((element) => {
+    element.addEventListener("contextmenu", (e) => {
+      console.log("Right click detected on element:", element);
       e.preventDefault();
-      activeTask = task;
+      activeElement = element;
 
-      const isAvailable = updateTaskPopUp(popUp, task);
+      let isAvailable = true;
+
+      if (typeof updateFunction === "function") {
+        isAvailable = updateFunction(popUp, element);
+      }
 
       popUp.style.left = `${e.pageX}px`;
       popUp.style.top = `${e.pageY}px`;
       popUp.classList.add("active");
 
-      // Only attach click handlers if popup is available
-      if (isAvailable) {
+      if (isAvailable && typeof handleFunction === "function") {
         popUp.querySelectorAll("li").forEach((li) => {
           li.addEventListener("click", () => {
             const action = li.textContent.trim();
-            handlePopUpAction(action, activeTask, popUp);
+            handleFunction(action, activeElement, popUp);
           });
         });
       }
     });
   });
 
+  // Only add global click listener if popup exists
   document.addEventListener("click", (e) => {
-    if (!popUp.contains(e.target)) popUp.classList.remove("active");
-  });
-
-  popUp.querySelectorAll("li").forEach((li) => {
-    li.addEventListener("click", () => {
-      const action = li.textContent.trim();
-      handlePopUpAction(action, activeTask, popUp);
-    });
+    if (popUp && !popUp.contains(e.target)) {
+      popUp.classList.remove("active");
+    }
   });
 }
 
+export function initTaskPopUps() {
+  const tasks = document.querySelectorAll(".task");
+  const popUp = document.querySelector(".task-pop-up");
+  if (tasks.length && popUp)
+    attachPopUpListeners(tasks, popUp, updateTaskPopUp, handlePopUpAction);
+}
+
+export function initConsequencePopUps() {
+  const consequences = document.querySelectorAll(".consequence");
+  const popUp = document.querySelector(".task-pop-up");
+  attachPopUpListeners(
+    consequences,
+    popUp,
+    updateConsequencePopUp,
+    handleConsequenceAction
+  );
+}
+
 initTaskPopUps();
+initConsequencePopUps();
