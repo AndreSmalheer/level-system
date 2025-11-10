@@ -1,0 +1,297 @@
+#tasks_container {
+  width: 90%;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  overflow-y: auto;
+}
+
+#tasks_container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
+.task {
+  background: rgba(0, 122, 209, 0.1);
+  border: 1.5px solid rgba(0, 200, 255, 0.4);
+  border-radius: 14px;
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  box-shadow: 0 4px 12px rgba(0, 200, 255, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.task.completed {
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.task.scheduled {
+  background: linear-gradient(90deg, rgba(0,122,209,0.18) 0%, rgba(0,200,255,0.22) 100%);
+}
+
+.task.scheduled:hover,
+.task.scheduled .task_label:hover,
+.task.scheduled .task_checkbox:hover {
+  cursor: not-allowed;
+}
+
+.task.scheduled .task_text {
+  color: #00e0ff;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.task.scheduled .task_checkbox {
+  background: rgba(0,200,255,0.13);
+}
+
+.task.completed .task_checkbox:checked {
+  background: #00c8ff;
+}
+
+.task.completed .task_checkbox:checked::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 18px;
+  border: solid #000;
+  border-width: 0 3px 3px 0;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.task.failed {
+  background-color: rgba(255, 80, 80, 0.15);
+}
+
+.task.failed .task_checkbox {
+  border-color: rgba(255, 100, 100, 0.4);
+  position: relative;
+}
+
+.task.failed .task_checkbox::after {
+  content: "✕";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: rgba(255, 50, 50, 0.9);
+  font-size: clamp(0.8rem, 1vw, 1rem);
+  font-weight: bold;
+}
+
+.task:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 200, 255, 0.25);
+}
+
+.task.completed:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+.task_label {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  flex: 1;
+}
+
+.task_checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: clamp(28px, 3vw, 35px);
+  height: clamp(28px, 3vw, 35px);
+  min-width: 28px;
+  min-height: 28px;
+  border: 2px solid #00c8ff;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.15);
+  position: relative;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.task_checkbox:hover {
+  box-shadow: 0 0 10px #00c8ff;
+}
+
+.task_text {
+  font-size: 1.3rem;
+  color: #00aaff;
+  user-select: none;
+  font-weight: 500;
+}
+
+.reward_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-weight: 600;
+  color: #00c8ff;
+  margin-left: auto;
+}
+
+.reward_container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* align coin & xp containers to right */
+  gap: 6px;
+  margin-left: auto;
+}
+
+.coin_container,
+.xp_container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.coin_container h1,
+.xp_container h1 {
+  width: 2.2ch;
+  text-align: right;
+  font-size: clamp(0.85rem, 1vw, 1rem);
+  margin: 0;
+  color: #00c8ff;
+  font-weight: 600;
+}
+
+.coin_icon {
+  width: clamp(16px, 1.5vw, 20px);
+  height: clamp(16px, 1.5vw, 20px);
+}
+
+.coin_container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.coin_icon {
+  width: 20px;
+  height: 20px;
+}
+
+.reward_container h1 {
+  font-size: 1rem;
+  margin: 0;
+  color: #00c8ff;
+}
+
+.xp_container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.coin_icon {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.2s ease;
+}
+
+.xp_container h1 {
+  font-size: 1rem;
+  margin: 0;
+  color: #00c8ff;
+  font-weight: 600;
+}
+
+.task-pop-up {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  background: rgba(0, 122, 209, 0.1);
+  border: 1.5px solid rgba(0, 200, 255, 0.4);
+  border-radius: 14px;
+  width: 180px; /* adjust as needed */
+  box-shadow: 0 4px 12px rgba(0, 200, 255, 0.2);
+  transition: opacity 0.2s ease, transform 0.15s ease;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  z-index: 1000;
+}
+
+.task-pop-up.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* The UL inside the popup */
+.task-pop-up ul {
+  list-style: none;
+  margin: 0;
+  padding: 8px 0;
+}
+
+/* Each menu item */
+.task-pop-up ul li {
+  padding: 10px 16px;
+  color: #00c8ff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Hover effect for glowing Solo Leveling style */
+.task-pop-up ul li:hover {
+  background: rgba(0, 200, 255, 0.2);
+  transform: translateX(3px);
+  box-shadow: 0 0 8px rgba(0, 200, 255, 0.4);
+}
+
+/* Optional: small icon inside li */
+.task-pop-up ul li img {
+  width: 18px;
+  height: 18px;
+}
+
+.time_container {
+  margin-left: clamp(10px, 7vw, 200px);
+  position: absolute;
+  left: 40%;
+  top: 40px;
+}
+
+.start_time,
+.end_time {
+  padding: clamp(2px, 0.3vw, 4px) clamp(6px, 0.8vw, 10px);
+  border-radius: 6px;
+  color: rgba(0, 170, 255, 0.7);
+  font-size: clamp(0.65rem, 0.9vw, 0.85rem);
+  font-weight: 500;
+  transition: background 0.2s ease, transform 0.15s ease, opacity 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.start_time.upcoming {
+  color: rgba(0, 200, 255, 0.8);
+}
+
+.end_time.almost-done {
+  color: rgba(255, 170, 0, 0.8);
+}
+
+.end_time.due-soon {
+  color: rgba(255, 50, 50, 0.9);
+}
+
+.end_time.overdue {
+  color: rgba(255, 0, 0, 1);
+  font-weight: 600;
+}

@@ -1,0 +1,42 @@
+<!-- prettier-ignore -->
+<div id="{{ window_id }}" class="system-window">
+  {% if show_back_btn %}
+  <div class="back-btn" onclick="switch_window('system_container')"></div>
+  {% endif %}
+
+  <form class="system-from" id="{{ form_id }}">
+    <label for="{{ input_name }}">{{ input_label }}</label>
+    <input type="text" id="{{ input_name }}" name="{{ input_name }}" value="{{ input_value | default('') }}" />
+
+    {% if show_number_inputs %}
+      <label for="coin_reward">Coin reward</label>
+      <input type="number" id="coin_reward" name="coin_reward" value="{{ coin_reward | default(2) }}" />
+
+      <label for="xp_reward">XP reward</label>
+      <input type="number" id="xp_reward" name="xp_reward" value="{{ xp_reward | default(2) }}" />
+    {% endif %}
+
+    {% if show_time_inputs %}
+      <label for="start_time">Start time</label>
+      <input type="time" id="start_time" name="start_time" />
+
+      <label for="end_time">End time</label>
+      <input type="time" id="end_time" name="end_time" />
+    {% endif %}
+
+    {% if show_repeat_days %}
+      <fieldset>
+        <legend>Repeat on (select days)</legend>
+        <label><input type="checkbox" name="repeat_days" value="monday" /> Monday</label>
+        <label><input type="checkbox" name="repeat_days" value="tuesday" /> Tuesday</label>
+        <label><input type="checkbox" name="repeat_days" value="wednesday" /> Wednesday</label>
+        <label><input type="checkbox" name="repeat_days" value="thursday" /> Thursday</label>
+        <label><input type="checkbox" name="repeat_days" value="friday" /> Friday</label>
+        <label><input type="checkbox" name="repeat_days" value="saturday" /> Saturday</label>
+        <label><input type="checkbox" name="repeat_days" value="sunday" /> Sunday</label>
+      </fieldset>
+    {% endif %}
+
+    <input type="submit" value="{{ submit_text | default('Submit') }}" />
+  </form>
+</div>

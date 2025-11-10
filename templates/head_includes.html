@@ -1,0 +1,21 @@
+<!-- load varilbe -->
+<script>
+  let user_data = true;
+  let currentXP = {{ (user.xp | default(0)) | tojson }};
+  let nextLevelXP = {{ (user.xp_to_next_level | default(0)) | tojson }};
+  let currentLevel = {{ (user.level | default(0)) | tojson }};
+  let current_coins = {{ (user.coins | default(0)) | tojson }};
+  let tasks = {{ (tasks | default([])) | tojson }};
+  let user_name = {{ (user.name | default("none")) | tojson }};
+</script>
+
+<script
+  type="module"
+  src="{{ url_for('static', filename='js/system_windows.js') }}"
+></script>
+
+<!-- load styling -->
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='styles/index.css') }}"
+/>

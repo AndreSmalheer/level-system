@@ -1,0 +1,21 @@
+/* Base styles */
+@import url("base/base.css");
+@import url("base/responsive.css");
+
+/* Animations */
+@import url("animations/animations.css");
+
+/* Components */
+@import url("components/buttons.css");
+@import url("components/form.css");
+@import url("components/progress_bar.css");
+@import url("components/selection_list.css");
+@import url("components/status.css");
+@import url("components/tasks.css");
+
+/* Windows */
+@import url("windows/add_tasks.css");
+@import url("windows/add_user_window.css");
+@import url("windows/consequences.css");
+@import url("windows/delete_task.css");
+@import url("windows/penelty_window.css");

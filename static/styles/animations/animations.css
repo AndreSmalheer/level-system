@@ -1,0 +1,18 @@
+@keyframes openSystem {
+  0% {
+    width: clamp(280px, 90vw, 800px);
+    height: 0;
+  }
+  1% {
+    width: clamp(280px, 90vw, 800px);
+    height: 1px;
+  }
+  10% {
+    width: clamp(280px, 90vw, 800px);
+    height: clamp(20px, 5vh, 50px);
+  }
+  100% {
+    width: clamp(280px, 90vw, 800px);
+    height: clamp(300px, 80vh, 700px);
+  }
+}

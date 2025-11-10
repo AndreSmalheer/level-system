@@ -1,0 +1,39 @@
+@media (min-width: 501px) {
+  #system_container {
+    width: clamp(280px, 90vw, 800px);
+    height: clamp(300px, 80vh, 700px);
+  }
+}
+
+@media (max-width: 500px) {
+  #system_container {
+    width: 90vw;
+    height: 93vh;
+  }
+
+  .task {
+    height: 10vh;
+  }
+
+  .task_label {
+    position: relative;
+  }
+
+  .time_container {
+    display: flex;
+    gap: clamp(4px, 0.8vw, 8px);
+    align-items: center;
+    margin-left: 0 !important;
+    position: absolute !important;
+    margin-top: 12px;
+    left: 0 !important;
+  }
+
+  .start_time,
+  .end_time {
+    width: fit-content;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

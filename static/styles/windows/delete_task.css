@@ -1,0 +1,39 @@
+/* =======================
+   Delete Task Window
+   ======================= */
+#delete_task_window {
+  align-items: center;
+  justify-content: center;
+}
+
+#delete_task_window.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Container inside window */
+#delete-task-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+}
+
+/* Header text */
+#delete_task_window h1 {
+  font-size: clamp(18px, 3vw, 28px);
+  margin: 0;
+  line-height: 1.4;
+  max-width: 25vw;
+  text-shadow: 0 0 6px rgba(0, 255, 255, 0.8);
+  color: #00eaff;
+}
+
+#delete_task_window #delete_task_name {
+  font-weight: bold;
+  color: #00ffea;
+  text-shadow: 0 0 8px rgba(0, 255, 255, 0.9);
+}
