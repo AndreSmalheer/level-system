@@ -4,7 +4,7 @@
     <div class="back-btn" onclick="switch_window('system_container')"></div>
   {% endif %}
 
-  <form class="system-form" id="{{ form_id }}">
+  <form class="system-from" id="{{ form_id }}">
     <!-- hidden type field -->
     <input type="hidden" name="type" value="{{ route_name | default(form_id.replace('_form','')) }}">
 
@@ -49,7 +49,7 @@
 
       const formData = new FormData(form);
 
-      // send to single generic route
+      // send to generic backend route
       const response = await fetch("/api/add", {
         method: "POST",
         body: formData,
