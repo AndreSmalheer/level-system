@@ -155,6 +155,7 @@ class Task {
     failed = this.failed,
     repeat_days = this.repeat_days,
   } = {}) {
+    // Update task values
     this.name = name;
     this.coinReward = coinReward;
     this.expReward = expReward;
@@ -164,6 +165,7 @@ class Task {
     this.failed = failed;
     this.repeat_days = repeat_days;
 
+    // Get elements
     let task_text = this.task_element.querySelector(".task_text");
     let coin_container = this.task_element.querySelector(".coin_container h1");
     let xp_container = this.task_element.querySelector(".xp_container h1");
@@ -173,18 +175,21 @@ class Task {
     let start_time_elem = this.task_element.querySelector(".start_time");
     let end_time_elem = this.task_element.querySelector(".end_time");
 
+    // Update text
     task_text.textContent = name;
     coin_container.textContent = coinReward;
     xp_container.textContent = expReward;
     start_time_elem.textContent = start_time;
     end_time_elem.textContent = end_time;
 
+    // If failed
     if (failed) {
       this.failed = true;
       this.task_element.classList.add("failed");
       return;
     }
 
+    // If completed
     if (completed) {
       this.task_element.classList.add("completed");
       this.task_element.classList.remove("failed");
@@ -192,6 +197,7 @@ class Task {
       status_coin_container.textContent =
         parseInt(status_coin_container.textContent) + this.coinReward;
     } else {
+      // Not completed
       this.task_element.classList.remove("completed");
       remove_xp(this.expReward);
       status_coin_container.textContent =
