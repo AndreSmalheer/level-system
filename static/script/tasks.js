@@ -1,6 +1,6 @@
 import { add_xp, remove_xp, set_xp } from "./progress.js";
 
-class Task {
+export class Task {
   constructor(
     task_id,
     name,
@@ -256,6 +256,8 @@ class Task {
   }
 }
 
+const tasksMap = new Map();
+
 for (const task of tasks) {
   let t = new Task(
     task.task_id,
@@ -269,4 +271,7 @@ for (const task of tasks) {
     task.repeat_days
   );
   t.add_task();
+  tasksMap.set(task.task_id, t);
 }
+
+export { tasksMap };
