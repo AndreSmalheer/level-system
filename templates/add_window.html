@@ -42,6 +42,7 @@
 
 <script type="module">
   import { hide_current_window } from "{{ url_for('static', filename='script/system_windows.js') }}";
+  import { switch_to_main_window } from "{{ url_for('static', filename='script/system_windows.js') }}";
 
   document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("{{ form_id }}");
@@ -61,8 +62,9 @@
       const result = await response.json();
       console.log(result);
 
+      switch_to_main_window();
+
       if (form.id == "add_user_form") {
-        hide_current_window();
         location.reload();
       }
     });

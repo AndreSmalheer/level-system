@@ -46,6 +46,8 @@
     show_window,
   } from "{{ url_for('static', filename='script/system_windows.js') }}";
 
+  import { set_xp } from "{{ url_for('static', filename='script/progress.js') }}";
+
   function load_user_data(level, xp, coins, xpNeeded, user_name) {
     console.log("Loading user data...");
     if (user_name == "none") {
@@ -63,10 +65,7 @@
 
     document.getElementById("current_xp").innerHTML = xp;
 
-    // set xp
-    const progressBar = document.getElementById("progress_bar");
-    const progressPercent = (xp / nextLevelXP) * 100;
-    progressBar.style.width = `${progressPercent}%`;
+    set_xp(xp, xpNeeded);
 
     document.getElementById("name").innerHTML = user_name;
   }

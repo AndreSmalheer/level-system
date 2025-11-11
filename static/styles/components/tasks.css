@@ -30,7 +30,11 @@
 }
 
 .task.scheduled {
-  background: linear-gradient(90deg, rgba(0,122,209,0.18) 0%, rgba(0,200,255,0.22) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 122, 209, 0.18) 0%,
+    rgba(0, 200, 255, 0.22) 100%
+  );
 }
 
 .task.scheduled:hover,
@@ -46,14 +50,14 @@
 }
 
 .task.scheduled .task_checkbox {
-  background: rgba(0,200,255,0.13);
+  background: rgba(0, 200, 255, 0.13);
 }
 
-.task.completed .task_checkbox:checked {
+.task.completed .task_checkbox {
   background: #00c8ff;
 }
 
-.task.completed .task_checkbox:checked::after {
+.task.completed .task_checkbox::after {
   content: "";
   position: absolute;
   top: 50%;
