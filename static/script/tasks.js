@@ -1,4 +1,4 @@
-import { add_xp, remove_xp } from "./progress.js";
+import { add_xp, remove_xp, set_xp } from "./progress.js";
 
 class Task {
   constructor(
@@ -213,16 +213,34 @@ class Task {
     if (completed) {
       this.task_element.classList.add("completed");
       this.task_element.classList.remove("failed");
-      add_xp(this.expReward);
       status_coin_container.textContent =
         parseInt(status_coin_container.textContent) + this.coinReward;
+      add_xp(this.expReward);
     } else {
       // Not completed
       this.task_element.classList.remove("completed");
-      remove_xp(this.expReward);
       status_coin_container.textContent =
         parseInt(status_coin_container.textContent) - this.coinReward;
+      remove_xp(this.expReward);
     }
+
+    let current_coins = parseInt(status_coin_container.textContent);
+    let current_xp = document.getElementById("current_xp").textContent;
+
+    const res_2 = await fetch("/api/update", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        type: "update_user_stats",
+        user_id: user_id,
+        level: currentLevel,
+        coins: current_coins,
+        xp: current_xp,
+        xp_to_next_level: nextLevelXP,
+      }),
+    });
+
+    console.log((await res_2.json()).message);
   }
 
   markFailed() {
@@ -238,5 +256,5 @@ class Task {
   }
 }
 
-let task = new Task(69, "Sample Task", 100, 2);
+let task = new Task(69, "Sample Task", 2, 100);
 task.add_task();
