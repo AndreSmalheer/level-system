@@ -36,13 +36,34 @@ def get_user():
         "xp_to_next_level": stats["xp_to_next_level"]
     }
 
+def get_tasks():
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM tasks")
+    rows = cursor.fetchall()
+    tasks = [{
+        "task_id": row["id"],
+        "task_name": row["task_name"],
+        "coin_reward": row["coin_reward"],
+        "xp_reward": row["xp_reward"],
+        "start_time": row["start_time"],
+        "end_time": row["end_time"],
+        "completed": bool(row["completed"]),
+        "failed": bool(row['failed']),
+        "penelty_id": (row['penelty_id']),
+        "repeat_days": row["repeat_days"]
+    } for row in rows]
+    cursor.close()
+    conn.close()
+    return tasks
+
 app = Flask(__name__)
 
 @app.route('/')
 def home(): 
     user = get_user()
-    return render_template('index.html', tasks =[], user=user)
-
+    tasks = get_tasks()
+    return render_template('index.html', tasks = tasks, user=user)
 
 @app.route("/api/add", methods=["POST"])
 def add_item():

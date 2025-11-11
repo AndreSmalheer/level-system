@@ -256,5 +256,17 @@ class Task {
   }
 }
 
-let task = new Task(69, "Sample Task", 2, 100);
-task.add_task();
+for (const task of tasks) {
+  let t = new Task(
+    task.task_id,
+    task.task_name,
+    task.coin_reward,
+    task.xp_reward,
+    task.start_time,
+    task.end_time,
+    task.completed,
+    task.failed,
+    task.repeat_days
+  );
+  t.add_task();
+}
