@@ -166,7 +166,25 @@ export class Task {
       });
   }
 
-  remove_task() {}
+  remove_task() {
+    // call api
+    fetch("/api/remvoe", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        type: "remove_task",
+        task_id: this.task_id,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log(data.message);
+        //  remove from task map
+        tasksMap.delete(this.task_id);
+        // remove from dom
+        this.hide_task();
+      });
+  }
 
   async update_task({
     name = this.name,

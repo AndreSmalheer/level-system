@@ -145,6 +145,25 @@ def add_item():
 
     return jsonify({"status": "Failed", "message": "Data type does not match"})
 
+@app.route("/api/remvoe", methods=["POST"])
+def remove_item():
+    data_type = request.json.get("type") 
+
+    if data_type == "remove_task":
+        task_id = request.json.get("task_id")
+
+        conn = get_connection()
+        cursor = conn.cursor()
+
+        cursor.execute('DELETE FROM tasks WHERE id = ?', (task_id,))
+
+        conn.commit()
+        conn.close()
+
+        return jsonify({"message": "Task removed"}), 200
+    
+    return jsonify({"status": "Failed", "message": "Data type does not match"})
+
 @app.route("/api/update", methods=["POST"])
 def update_item():
     data_type = request.json.get("type") 
