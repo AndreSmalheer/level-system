@@ -140,7 +140,7 @@ export class Task {
     // initCheckboxes();
   }
 
-  dom_remove_task() {
+  hide_task() {
     let task_element = document.getElementById(this.task_id);
     task_element.remove();
   }
