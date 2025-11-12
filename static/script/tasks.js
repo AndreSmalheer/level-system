@@ -6,6 +6,8 @@ class PopUp {
     this.items = items;
     this.x = x;
     this.y = y;
+    this.currentItemId = null;
+    this.currentItemType = null;
   }
   create() {
     const popUp = document.createElement("div");
@@ -20,6 +22,12 @@ class PopUp {
       for (let item of this.items) {
         const li = document.createElement("li");
         li.textContent = item;
+
+        li.addEventListener("click", () => {
+          this.LiCLick(item);
+          this.hide();
+        });
+
         ul.appendChild(li);
       }
       popUp.appendChild(ul);
@@ -30,7 +38,6 @@ class PopUp {
   }
 
   show(x, y) {
-    console.log(this.currentTaskId);
     this.element.style.left = x + "px";
     this.element.style.top = y + "px";
 
@@ -41,6 +48,21 @@ class PopUp {
   hide() {
     this.element.classList.remove("show");
     this.element.classList.add("hide");
+  }
+
+  LiCLick(item) {
+    const action = item.toLowerCase();
+    if (this.currentItemType == "tasks") {
+      const task = tasksMap.get(this.currentItemId);
+
+      if (action == "edit task") {
+        console.log("showing edit window");
+      }
+
+      if (action == "delete task") {
+        console.log("showing delete window");
+      }
+    }
   }
 }
 
@@ -81,7 +103,8 @@ export class Task {
     });
 
     taskDiv.addEventListener("contextmenu", (e) => {
-      taskPopUp.currentTaskId = this.task_id;
+      taskPopUp.currentItemId = this.task_id;
+      taskPopUp.currentItemType = "tasks";
       taskPopUp.show(e.pageX, e.pageY);
       e.preventDefault();
     });
@@ -347,7 +370,7 @@ export class Task {
   }
 }
 
-const taskPopUp = new PopUp("task_popup", ["Option 1", "Option 2"]);
+const taskPopUp = new PopUp("task_popup", ["Edit Task", "Delete Task"]);
 taskPopUp.create();
 
 const tasksMap = new Map();
