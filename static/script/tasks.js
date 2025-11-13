@@ -18,6 +18,12 @@ class PopUp {
     popUp.textContent = this.textContent;
     popUp.classList.add("hide");
 
+    document.body.addEventListener("click", (event) => {
+      if (!popUp.contains(event.target)) {
+        popUp.classList.add("hide");
+      }
+    });
+
     if (this.items.length > 0) {
       const ul = document.createElement("ul");
       for (let item of this.items) {
