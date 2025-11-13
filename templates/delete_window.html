@@ -1,0 +1,52 @@
+<script type="module">
+  import { switch_to_main_window } from "{{ url_for('static', filename='script/system_windows.js') }}";
+  import { tasksMap } from "{{ url_for('static', filename='script/tasks.js') }}";
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const confirmButton = document.getElementById("confirm_{{ type }}_button");
+
+    confirmButton.addEventListener("click", () => {
+      let delWindow = document.getElementById("delete_{{ type }}_window");
+      const itemIdDiv = delWindow.querySelector("#{{ type }}_id");
+      const itemId = Number(itemIdDiv.textContent);
+      const task = tasksMap.get(itemId);
+
+      task.remove_task();
+
+      switch_to_main_window();
+    });
+  });
+</script>
+
+<!-- prettier-ignore -->
+<div id="delete_{{ type }}_window" class="system-window delete_window">
+  {% if show_back_btn %}
+  <div class="back-btn" style="z-index: 100;" onclick="switch_to_main_window()"></div>
+  {% endif %}
+
+  <div id="{{ type }}_id" style="display: none;"></div>
+
+  <div id="delete_{{ type }}_container" class="delete_container">
+    <h1 id="delete_{{ type }}_task">
+      You're about to delete <span id="delete_{{ type }}_name">{task}</span>, are you
+      sure?
+    </h1>
+
+    <div>
+     <button
+      class="system-button"
+      id="decline_{{ type }}_button"
+      onclick="switch_to_main_window()"
+    >
+    Decline
+     </button>
+
+     <button
+      class="system-button"
+      id="confirm_{{ type }}_button"
+    >
+      Confirm
+     </button>
+    </div>
+  </div>
+</div>

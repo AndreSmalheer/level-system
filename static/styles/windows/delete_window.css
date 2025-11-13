@@ -1,0 +1,14 @@
+.delete_window .delete_container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-6vh);
+}
+
+.delete_window .delete_container span {
+  font-weight: bold;
+  color: #00ffea;
+  text-shadow: 0 0 8px rgba(0, 255, 255, 0.9);
+}

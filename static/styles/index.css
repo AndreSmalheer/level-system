@@ -5,6 +5,9 @@
 /* Animations */
 @import url("animations/animations.css");
 
+/* Windows */
+@import url("windows/delete_window.css");
+
 /* Components */
 @import url("components/buttons.css");
 @import url("components/form.css");

@@ -75,9 +75,16 @@ class PopUp {
 
         switch_window("edit_task_window");
       }
-
       if (action == "delete task") {
-        console.log("showing delete window");
+        let delete_task_window = document.getElementById("delete_task_window");
+        let task_id_element = delete_task_window.querySelector("#task_id");
+        const task = tasksMap.get(this.currentItemId);
+        let span = delete_task_window.querySelector("span");
+
+        span.innerHTML = task.name;
+        task_id_element.innerHTML = this.currentItemId;
+
+        switch_window("delete_task_window");
       }
     }
   }
