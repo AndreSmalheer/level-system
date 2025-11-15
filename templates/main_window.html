@@ -55,8 +55,6 @@
   
     const contentId = `${li_name}_container`
     const buttonId = `add_${li_name}_btn`
-
-    console.log(buttonId)
   
     const content = document.getElementById(contentId)
     const button = document.getElementById(buttonId)
@@ -72,7 +70,6 @@
   const selection_list = document.getElementById("selection_list")
   const selection_list_li = selection_list.querySelectorAll("li")
   for (const li of selection_list_li) {
-    console.log(li)
     li.addEventListener("click", () => onListItemClick(li))
   }
 
