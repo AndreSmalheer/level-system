@@ -18,11 +18,14 @@
     <!-- prettier-ignore -->
     {% with window_id="add_user_window", form_id="add_user_form", input_name="user_name", input_label="User name", welcome_message="Welcome new User" %}{% include "add_window.html" %}{% endwith %}
     {% with window_id="add_task_window", form_id="add_task_form", input_name="task_name", input_label="Task name", show_back_btn=true, show_number_inputs=true, show_time_inputs=true, show_repeat_days=true, coin_reward=2, xp_reward=2, submit_text="Submit" %}{% include "add_window.html" %}{% endwith %}
-    {% with window_id="edit_task_window", task_id =1, form_id="edit_task_form", input_name="task_name", input_label="Task name", show_back_btn=true, show_number_inputs=true, show_time_inputs=true, show_repeat_days=true, coin_reward=2, xp_reward=2, submit_text="Submit" %}{% include "edit_window.html" %}{% endwith %}
+    {% with window_id="add_task_window", form_id="add_task_form", input_name="task_name", input_label="Task name", show_back_btn=true, show_number_inputs=true, show_time_inputs=true, show_repeat_days=true, coin_reward=2, xp_reward=2, submit_text="Submit" %}{% include "add_window.html" %}{% endwith %}
+    {% with window_id="add_concecenses_window", form_id="add_concecenses_form", input_name="concecenses_name", input_label="Concecenses Name", show_back_btn=true %}{% include "add_window.html" %}{% endwith %}
+
+
+    {% with window_id="edit_task_window", task_id =1, form_id="edit_task_form", input_name="task_name", input_label="Task name", show_back_btn=true, show_number_inputs=true, show_time_inputs=true, show_repeat_days=true, coin_reward=2, xp_reward=2, submit_text="Submit" %}{% include "edit_window.html" %}{% endwith %}    
+    {% with window_id="edit_user_settings", form_id="edit_user_form", show_back_btn=true, input_value=user.name, show_user_name=true%}{% include "edit_window.html" %}{% endwith %}
+
     {% with window_id="delete_task_window", type="task", item_id=1, item="Test Task", show_back_btn=true %}{% include "delete_window.html" %}{% endwith %}
-    {% with window_id="edit_user_settings", form_id="edit_user_form", show_back_btn=true, input_value=user.name, show_user_name=true%}
-    {% include "edit_window.html" %}
-{% endwith %}
 
     {% include "main_window.html" %}
     <!-- prettier-ignore -->
