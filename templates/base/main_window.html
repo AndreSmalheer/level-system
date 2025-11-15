@@ -45,9 +45,9 @@
     switch_to_main_window,
     show_window,
     switch_window,
-  } from "{{ url_for('static', filename='script/system_windows.js') }}";
+  } from "{{ url_for('static', filename='script/modules/system_windows.js') }}";
 
-  import { set_xp } from "{{ url_for('static', filename='script/progress.js') }}";
+  import { set_xp } from "{{ url_for('static', filename='script/pages/progress.js') }}";
 
   function onListItemClick(li) {
     const li_name = li.textContent.toLowerCase()

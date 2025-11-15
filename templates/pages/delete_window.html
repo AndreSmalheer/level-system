@@ -1,9 +1,9 @@
 <script type="module">
-  import { switch_to_main_window } from "{{ url_for('static', filename='script/system_windows.js') }}";
+  import { switch_to_main_window } from "{{ url_for('static', filename='script/modules/system_windows.js') }}";
   import {
     tasksMap,
     concecensesMap,
-  } from "{{ url_for('static', filename='script/tasks.js') }}";
+  } from "{{ url_for('static', filename='script/modules/tasks.js') }}";
 
   document.addEventListener("DOMContentLoaded", () => {
     const confirmButton = document.getElementById("confirm_{{ type }}_button");

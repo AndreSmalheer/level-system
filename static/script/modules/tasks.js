@@ -1,4 +1,4 @@
-import { add_xp, remove_xp, set_xp } from "./progress.js";
+import { add_xp, remove_xp, set_xp } from "../pages/progress.js";
 import { switch_window } from "./system_windows.js";
 
 function handleLiAction(action, taskId, current_item) {

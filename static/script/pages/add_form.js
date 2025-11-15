@@ -1,5 +1,5 @@
-import { Task, Concecenses } from "./tasks.js";
-import { switch_to_main_window } from "./system_windows.js";
+import { Task, Concecenses } from "../modules/tasks.js";
+import { switch_to_main_window } from "../modules/system_windows.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const forms = document.querySelectorAll("form");
