@@ -54,6 +54,20 @@ function handleLiAction(action, taskId, current_item) {
 
       switch_window("edit_concecense_window");
     }
+
+    if (action === "delete concecense") {
+      const deleteConsequenceWindow = document.getElementById(
+        "delete_consequence_window"
+      );
+      const consequenceIdElement =
+        deleteConsequenceWindow.querySelector("#consequence_id");
+      const span = deleteConsequenceWindow.querySelector("span");
+
+      span.innerHTML = concecense.name;
+      consequenceIdElement.innerHTML = concecense.id;
+
+      switch_window("delete_consequence_window");
+    }
   }
 }
 
@@ -546,7 +560,34 @@ export class Concecenses {
     concecensesMap.set(this.id, this);
   }
 
-  hide_concecenses() {}
+  remove_consequence() {
+    // call api
+    fetch("/api/remvoe", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        type: "remove_consequence",
+        consequence_id: this.id,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log(data.message);
+        //  remove from task map
+        concecensesMap.delete(this.id);
+        // remove from dom
+        this.hide_concecenses();
+      });
+  }
+
+  hide_concecenses() {
+    const consequence_element = document.getElementById(this.id);
+    if (consequence_element) {
+      consequence_element.remove();
+    } else {
+      console.warn(`No element found with id ${this.id}`);
+    }
+  }
 }
 
 // popups

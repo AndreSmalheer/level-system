@@ -201,6 +201,19 @@ def remove_item():
 
         return jsonify({"message": "Task removed"}), 200
     
+    if data_type == "remove_consequence":
+        consequence_id = request.json.get("consequence_id")
+
+        conn = get_connection()
+        cursor = conn.cursor()
+
+        cursor.execute('DELETE FROM concecenses WHERE concecenses_id = ?', (consequence_id,))
+
+        conn.commit()
+        conn.close()
+
+        return jsonify({"message": "Task removed"}), 200
+
     return jsonify({"status": "Failed", "message": "Data type does not match"})
 
 @app.route("/api/update", methods=["POST"])
