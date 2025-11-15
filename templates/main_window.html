@@ -32,11 +32,11 @@
     <li>Consequences</li>
   </ul>
 
-  <div id="tasks_container"></div>
-  <div id="consequences_container"></div>
+  <div id="tasks_container" class="tab-content tasks-tab"></div>
+  <div id="consequences_container" class="tab-content consequences-tab"></div>
 
-  <button id="add_task_btn" class="add_btn" onclick="switch_window('add_task_window')">+</button>
-  <button id="add_consequence_btn" class="add_btn" onclick="switch_window('add_consequence_window')">+</button>
+  <button id="add_tasks_btn" class="add_btn" onclick="switch_window('add_task_window')">+</button>
+  <button id="add_consequences_btn" class="add_btn" onclick="switch_window('add_consequence_window')">+</button>
 </div>
 <!-- prettier-ignore -->
 
@@ -48,6 +48,35 @@
   } from "{{ url_for('static', filename='script/system_windows.js') }}";
 
   import { set_xp } from "{{ url_for('static', filename='script/progress.js') }}";
+
+  function onListItemClick(li) {
+    const li_name = li.textContent.toLowerCase()
+    document.querySelectorAll(".tab-content, .add_btn").forEach(el => el.style.display = "none")
+  
+    const contentId = `${li_name}_container`
+    const buttonId = `add_${li_name}_btn`
+
+    console.log(buttonId)
+  
+    const content = document.getElementById(contentId)
+    const button = document.getElementById(buttonId)
+  
+    if (content) content.style.display = "flex"
+    if (button) button.style.display = "block"
+  
+    // Update active class
+    selection_list_li.forEach(item => item.classList.remove("active"))
+    li.classList.add("active")
+  }
+
+  const selection_list = document.getElementById("selection_list")
+  const selection_list_li = selection_list.querySelectorAll("li")
+  for (const li of selection_list_li) {
+    console.log(li)
+    li.addEventListener("click", () => onListItemClick(li))
+  }
+
+  document.querySelectorAll(".tab-content, .add_btn").forEach(el => el.style.display="none"), document.getElementById("add_tasks_btn").style.display="block", document.getElementById("tasks_container").style.display="block"
 
   const settings_icon = document.getElementById("settings_icon")
   settings_icon.addEventListener(
