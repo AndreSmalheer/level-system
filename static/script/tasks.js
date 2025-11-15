@@ -494,15 +494,14 @@ export class Concecenses {
       .then((data) => {
         this.id = data.concecenses.concecenses_id;
         this.dom_add_concecenses();
+        concecensesMap.set(this.id, this);
       });
   }
 
   hide_concecenses() {}
 }
 
-const newConsequence = new Concecenses("c1", "Missed deadline");
-newConsequence.dom_add_concecenses();
-
+// popups
 const taskPopUp = new PopUp("task_popup", ["Edit Task", "Delete Task"]);
 taskPopUp.create();
 
@@ -513,6 +512,7 @@ const concecensePopUp = new PopUp("concecense_popup", [
 concecensePopUp.create();
 
 const tasksMap = new Map();
+const concecensesMap = new Map();
 
 for (const task of tasks) {
   let t = new Task(
@@ -530,4 +530,15 @@ for (const task of tasks) {
   tasksMap.set(task.task_id, t);
 }
 
-export { tasksMap };
+for (const concecense of concecenses) {
+  let c = new Concecenses(
+    concecense.concecenses_id,
+    concecense.name,
+    concecense.description
+  );
+
+  c.dom_add_concecenses();
+  concecensesMap.set(concecense.concecenses_id, c);
+}
+
+export { tasksMap, concecensesMap };
