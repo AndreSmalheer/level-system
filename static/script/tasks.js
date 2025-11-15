@@ -126,6 +126,7 @@ export class Task {
     // Create task wrapper
     const taskDiv = document.createElement("div");
     taskDiv.classList.add("task");
+    taskDiv.classList.add("card");
     taskDiv.id = this.task_id;
 
     taskDiv.addEventListener("click", () => {
@@ -381,11 +382,11 @@ export class Task {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           type: "update_user_stats",
-          user_id: user_id,
-          level: currentLevel,
-          coins: current_coins,
-          xp: current_xp,
-          xp_to_next_level: nextLevelXP,
+          user_id: currentUser.id,
+          level: currentUser.level,
+          coins: currentUser.coins,
+          xp: currentUser.xp,
+          xp_to_next_level: currentUser.xpToNextLevel,
         }),
       });
 
@@ -413,6 +414,51 @@ export class Task {
     }
   }
 }
+
+export class Concecenses {
+  constructor(id, name) {
+    this.id = id;
+    this.name = name;
+  }
+
+  dom_add_concecenses() {
+    const concecense_container = document.getElementById(
+      "consequences_container"
+    );
+
+    const concecenseDiv = document.createElement("div");
+    concecenseDiv.classList.add("concecense");
+    concecenseDiv.classList.add("card");
+    concecenseDiv.id = this.id;
+
+    const label = document.createElement("label");
+    label.classList.add("consequences_label");
+
+    const span = document.createElement("span");
+    span.classList.add("concecense_text");
+    span.textContent = this.name;
+
+    label.appendChild(span);
+    concecenseDiv.appendChild(label);
+
+    // Add task to DOM
+    concecense_container.appendChild(concecenseDiv);
+
+    // concecenseDiv.addEventListener("click", () => {
+    //   this.click();
+    // });
+
+    // concecenseDiv.addEventListener("contextmenu", (e) => {
+    //   taskPopUp.currentItemId = this.task_id;
+    //   taskPopUp.currentItemType = "tasks";
+    //   taskPopUp.show(e.pageX, e.pageY);
+    //   e.preventDefault();
+    // });
+  }
+}
+
+const newConsequence = new Concecenses("c1", "Missed deadline");
+newConsequence.dom_add_concecenses();
 
 const taskPopUp = new PopUp("task_popup", ["Edit Task", "Delete Task"]);
 taskPopUp.create();

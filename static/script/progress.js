@@ -1,5 +1,5 @@
 let current_xp = currentUser.xp;
-let next_level_xp = currentUser.xpToNextLevel;
+let nextLevelXP = currentUser.xpToNextLevel;
 
 export function set_xp(current_xp, next_level_xp) {
   current_xp = current_xp;

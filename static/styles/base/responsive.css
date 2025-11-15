@@ -11,11 +11,11 @@
     height: 93vh;
   }
 
-  .task {
+  .card {
     height: 10vh;
   }
 
-  .task_label {
+  .card_label {
     position: relative;
   }
 
