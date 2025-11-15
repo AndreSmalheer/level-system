@@ -233,7 +233,26 @@ def update_item():
         conn.close()
 
         return jsonify({"message": "Task updated"}), 200
-    
+
+    if data_type == "update_concecenses":
+        id = request.json.get("id")
+        name = request.json.get("name")
+        description = request.json.get("description")
+
+        conn = get_connection()
+        cursor = conn.cursor()
+
+        cursor.execute('''
+        UPDATE concecenses
+        SET name = ?, description = ?
+        WHERE concecenses_id = ?
+        ''', (name, description, id))
+
+        conn.commit()
+        conn.close()
+
+        return jsonify({"message": "concecense updated"}), 200
+
     if data_type == "update_user_stats":
         user_id = request.json.get("user_id")
         level = request.json.get("level")

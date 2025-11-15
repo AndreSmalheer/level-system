@@ -38,7 +38,22 @@ function handleLiAction(action, taskId, current_item) {
   }
 
   if (current_item == "concecense") {
-    console.log(action);
+    const concecense = concecensesMap.get(taskId);
+
+    if (action == "edit concecense") {
+      const concecense_window = document.getElementById(
+        "edit_concecense_window"
+      );
+
+      const windowEl = document.getElementById("edit_concecense_window");
+
+      windowEl.dataset.concecenseId = concecense.id;
+
+      concecense_window.querySelector("#concecense_name").value =
+        concecense.name;
+
+      switch_window("edit_concecense_window");
+    }
   }
 }
 
@@ -430,6 +445,7 @@ export class Concecenses {
     this.id = id;
     this.name = name;
     this.description = description;
+    this.concecense_element = null;
   }
 
   click() {
@@ -451,7 +467,7 @@ export class Concecenses {
     });
 
     concecenseDiv.addEventListener("contextmenu", (e) => {
-      concecensePopUp.currentItemId = this.task_id;
+      concecensePopUp.currentItemId = this.id;
       concecensePopUp.currentItemType = "concecense";
       concecensePopUp.show(e.pageX, e.pageY);
       e.preventDefault();
@@ -496,6 +512,38 @@ export class Concecenses {
         this.dom_add_concecenses();
         concecensesMap.set(this.id, this);
       });
+  }
+
+  async update_concecenses({
+    name = this.name,
+    description = this.description,
+  } = {}) {
+    // Update task values
+    this.name = name;
+    this.description = description;
+
+    // Get elements
+    let concecense_text =
+      this.concecense_element.querySelector(".concecense_text");
+
+    // Update text
+    concecense_text.textContent = this.name;
+
+    // call api
+    const res = await fetch("/api/update", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        type: "update_concecenses",
+        id: this.id,
+        name: this.name,
+        description: this.description,
+      }),
+    });
+
+    console.log((await res.json()).message);
+
+    concecensesMap.set(this.id, this);
   }
 
   hide_concecenses() {}

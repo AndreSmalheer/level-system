@@ -24,6 +24,7 @@
 
     {% with window_id="edit_task_window", task_id =1, form_id="edit_task_form", input_name="task_name", input_label="Task name", show_back_btn=true, show_number_inputs=true, show_time_inputs=true, show_repeat_days=true, coin_reward=2, xp_reward=2, submit_text="Submit" %}{% include "edit_window.html" %}{% endwith %}    
     {% with window_id="edit_user_settings", form_id="edit_user_form", show_back_btn=true, input_value=user.name, show_user_name=true%}{% include "edit_window.html" %}{% endwith %}
+    {% with window_id="edit_concecense_window", form_id="edit_concecense_form", input_name="concecense_name", input_label="Concecense name", show_back_btn=true, submit_text="Submit"%}{% include "edit_window.html" %}{% endwith %}
 
     {% with window_id="delete_task_window", type="task", item_id=1, item="Test Task", show_back_btn=true %}{% include "delete_window.html" %}{% endwith %}
 

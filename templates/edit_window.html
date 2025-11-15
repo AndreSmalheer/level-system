@@ -67,6 +67,7 @@
   import {
     Task,
     tasksMap,
+    concecensesMap,
   } from "{{ url_for('static', filename='script/tasks.js') }}";
   import { switch_to_main_window } from "{{ url_for('static', filename='script/system_windows.js') }}";
 
@@ -105,6 +106,19 @@
 
         currentUser.updateUserSettings(new_user_name);
 
+        switch_to_main_window();
+      }
+
+      if (form.id === "edit_concecense_form") {
+        const windowEl = document.getElementById("edit_concecense_window");
+        const concecenseId = Number(windowEl.dataset.concecenseId);
+
+        const concecense = concecensesMap.get(concecenseId);
+        if (!concecense) return console.error("Concecense not found");
+
+        const newName = form.elements["concecense_name"].value;
+
+        await concecense.update_concecenses({ name: newName });
         switch_to_main_window();
       }
     });
