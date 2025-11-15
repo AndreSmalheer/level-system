@@ -1,6 +1,47 @@
 import { add_xp, remove_xp, set_xp } from "./progress.js";
 import { switch_window } from "./system_windows.js";
 
+function handleLiAction(action, taskId, current_item) {
+  if (current_item == "tasks") {
+    const task = tasksMap.get(taskId);
+
+    if (action === "edit task") {
+      const form = document.getElementById("edit_task_form");
+
+      form.querySelector("#task_id").value = task.task_id;
+      form.querySelector("#task_name").value = task.name;
+      form.querySelector("#coin_reward").value = task.coinReward;
+      form.querySelector("#xp_reward").value = task.expReward;
+      form.querySelector("#start_time").value = task.start_time;
+      form.querySelector("#end_time").value = task.end_time;
+
+      if (task.repeat_days) {
+        const checkboxes = form.querySelectorAll('input[name="repeat_days"]');
+        checkboxes.forEach((checkbox) => {
+          checkbox.checked = task.repeat_days.includes(checkbox.value);
+        });
+      }
+
+      switch_window("edit_task_window");
+    }
+
+    if (action === "delete task") {
+      const deleteTaskWindow = document.getElementById("delete_task_window");
+      const taskIdElement = deleteTaskWindow.querySelector("#task_id");
+      const span = deleteTaskWindow.querySelector("span");
+
+      span.innerHTML = task.name;
+      taskIdElement.innerHTML = taskId;
+
+      switch_window("delete_task_window");
+    }
+  }
+
+  if (current_item == "concecense") {
+    console.log(action);
+  }
+}
+
 class PopUp {
   constructor(id, items, x, y) {
     this.id = id;
@@ -58,41 +99,7 @@ class PopUp {
   }
   LiCLick(item) {
     const action = item.toLowerCase();
-    if (this.currentItemType == "tasks") {
-      const task = tasksMap.get(this.currentItemId);
-
-      if (action == "edit task") {
-        let form = document.getElementById("edit_task_form");
-
-        // set form placeholders
-        form.querySelector("#task_id").value = task.task_id;
-        form.querySelector("#task_name").value = task.name;
-        form.querySelector("#coin_reward").value = task.coinReward;
-        form.querySelector("#xp_reward").value = task.expReward;
-        form.querySelector("#start_time").value = task.start_time;
-        form.querySelector("#end_time").value = task.end_time;
-
-        if (task.repeat_days) {
-          const checkboxes = form.querySelectorAll('input[name="repeat_days"]');
-          checkboxes.forEach((checkbox) => {
-            checkbox.checked = task.repeat_days.includes(checkbox.value);
-          });
-        }
-
-        switch_window("edit_task_window");
-      }
-      if (action == "delete task") {
-        let delete_task_window = document.getElementById("delete_task_window");
-        let task_id_element = delete_task_window.querySelector("#task_id");
-        const task = tasksMap.get(this.currentItemId);
-        let span = delete_task_window.querySelector("span");
-
-        span.innerHTML = task.name;
-        task_id_element.innerHTML = this.currentItemId;
-
-        switch_window("delete_task_window");
-      }
-    }
+    handleLiAction(action, this.currentItemId, this.currentItemType);
   }
 }
 
@@ -421,6 +428,10 @@ export class Concecenses {
     this.name = name;
   }
 
+  click() {
+    console.log(`clicked on ${this.concecense_element}`);
+  }
+
   dom_add_concecenses() {
     const concecense_container = document.getElementById(
       "consequences_container"
@@ -430,6 +441,17 @@ export class Concecenses {
     concecenseDiv.classList.add("concecense");
     concecenseDiv.classList.add("card");
     concecenseDiv.id = this.id;
+
+    concecenseDiv.addEventListener("click", () => {
+      this.click();
+    });
+
+    concecenseDiv.addEventListener("contextmenu", (e) => {
+      concecensePopUp.currentItemId = this.task_id;
+      concecensePopUp.currentItemType = "concecense";
+      concecensePopUp.show(e.pageX, e.pageY);
+      e.preventDefault();
+    });
 
     const label = document.createElement("label");
     label.classList.add("consequences_label");
@@ -441,12 +463,10 @@ export class Concecenses {
     label.appendChild(span);
     concecenseDiv.appendChild(label);
 
+    this.concecense_element = concecenseDiv;
+
     // Add task to DOM
     concecense_container.appendChild(concecenseDiv);
-
-    // concecenseDiv.addEventListener("click", () => {
-    //   this.click();
-    // });
 
     // concecenseDiv.addEventListener("contextmenu", (e) => {
     //   taskPopUp.currentItemId = this.task_id;
@@ -455,6 +475,8 @@ export class Concecenses {
     //   e.preventDefault();
     // });
   }
+
+  hide_concecenses() {}
 }
 
 const newConsequence = new Concecenses("c1", "Missed deadline");
@@ -462,6 +484,12 @@ newConsequence.dom_add_concecenses();
 
 const taskPopUp = new PopUp("task_popup", ["Edit Task", "Delete Task"]);
 taskPopUp.create();
+
+const concecensePopUp = new PopUp("concecense_popup", [
+  "Edit concecense",
+  "Delete concecense",
+]);
+concecensePopUp.create();
 
 const tasksMap = new Map();
 
