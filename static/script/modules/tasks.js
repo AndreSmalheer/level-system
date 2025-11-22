@@ -163,6 +163,9 @@ export class Task {
     const taskDiv = document.createElement("div");
     taskDiv.classList.add("task");
     taskDiv.classList.add("card");
+    if (this.failed) {
+      taskDiv.classList.add("failed");
+    }
     taskDiv.id = this.task_id;
 
     taskDiv.addEventListener("click", () => {
