@@ -449,6 +449,11 @@ export class Task {
   }
 
   click() {
+    if (this.failed) {
+      console.log("task failed");
+      return;
+    }
+
     if (!this.completed) {
       this.update_task({ completed: true, click: true });
     } else {
